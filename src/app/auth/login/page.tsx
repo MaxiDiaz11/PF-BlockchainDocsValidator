@@ -1,7 +1,13 @@
 import React from "react";
-import { AuthLayout } from "@/components/layouts";
+import NextLink from "next/link";
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
-import NextLink from 'next/link';
+import { AuthLayout } from "@/app/components/layouts";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Ingresar",
+  description: "Login page",
+};
 
 const LoginPage = () => {
   return (

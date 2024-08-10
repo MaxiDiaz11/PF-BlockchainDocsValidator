@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import Head from "next/head";
 import { NavBar, SideMenu } from "../ui";
 
-
 interface Props {
   children: JSX.Element | JSX.Element[];
   title: string;
@@ -16,6 +15,9 @@ export const DocsLayout: FC<Props> = ({
   title,
   imageFullUrl,
 }) => {
+
+  //TODO: Implementar redirect a login en caso que no tenga sesion iniciada
+
   return (
     <>
       <Head>

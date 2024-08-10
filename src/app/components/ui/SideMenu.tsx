@@ -1,3 +1,4 @@
+'use client'
 import {
   Box,
   Divider,
@@ -23,15 +24,17 @@ import {
   SearchOutlined,
   VpnKeyOutlined,
 } from "@mui/icons-material";
-import router from "next/router";
 import { useContext } from "react";
 import { UiContext } from "@/app/context";
 
+import { redirect } from "next/navigation";
+
 export const SideMenu = () => {
   const { toggleSideMenu, isMenuOpen } = useContext(UiContext);
+  
   const navigateTo = (path: string) => {
     toggleSideMenu();
-    router.push(path);
+    redirect(path);
   };
 
   return (

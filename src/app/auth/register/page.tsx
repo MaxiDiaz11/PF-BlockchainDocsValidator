@@ -1,11 +1,17 @@
 import React from "react";
-import { AuthLayout } from "@/components/layouts";
-import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import NextLink from "next/link";
+import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { AuthLayout } from "@/app/components/layouts";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Registrarse",
+  description: "Register page",
+};
 
 const RegisterPage = () => {
   return (
-    <AuthLayout title={"Ingresar"}>
+    <AuthLayout title={"Registrarse"}>
       <Box sx={{ width: 350, padding: "10px 20px" }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>

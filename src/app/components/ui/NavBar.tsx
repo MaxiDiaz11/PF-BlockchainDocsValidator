@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext, useState } from "react";
 import {
   AppBar,
@@ -11,12 +12,11 @@ import {
 } from "@mui/material";
 import NextLink from "next/link";
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { UiContext } from "@/app/context";
 
-
 export const NavBar = () => {
-  const page = useRouter().pathname;
+  const page = usePathname()
   const { toggleSideMenu } = useContext(UiContext);
 
   return (
@@ -24,8 +24,8 @@ export const NavBar = () => {
       <Toolbar>
         <NextLink href={"/"} passHref legacyBehavior>
           <Link display={"flex"} alignItems={"center"}>
-            <Typography variant="h6">Teslo |</Typography>
-            <Typography sx={{ ml: 0.5 }}>Shop</Typography>
+            <Typography variant="h6">BlockSolutions</Typography>
+            {/* <Typography sx={{ ml: 0.5 }}>Solutions</Typography>  */}
           </Link>
         </NextLink>
 
@@ -35,21 +35,21 @@ export const NavBar = () => {
           <NextLink href={"/category/men"} passHref legacyBehavior>
             <Link>
               <Button color={page === "/category/men" ? "primary" : "info"}>
-                Hombres
+                Generar
               </Button>
             </Link>
           </NextLink>
           <NextLink href={"/category/women"} passHref legacyBehavior>
             <Link>
               <Button color={page === "/category/women" ? "primary" : "info"}>
-                Mujeres
+                Validar
               </Button>
             </Link>
           </NextLink>
           <NextLink href={"/category/kid"} passHref legacyBehavior>
             <Link>
               <Button color={page === "/category/kid" ? "primary" : "info"}>
-                Niños
+                Listar
               </Button>
             </Link>
           </NextLink>
@@ -60,15 +60,6 @@ export const NavBar = () => {
         <IconButton>
           <SearchOutlined></SearchOutlined>
         </IconButton>
-        <NextLink href={"/cart"} passHref legacyBehavior>
-          <Link>
-            <IconButton>
-              <Badge badgeContent={2} color="secondary">
-                <ShoppingCartOutlined></ShoppingCartOutlined>
-              </Badge>
-            </IconButton>
-          </Link>
-        </NextLink>
 
         <Button onClick={toggleSideMenu}>Menú</Button>
       </Toolbar>
