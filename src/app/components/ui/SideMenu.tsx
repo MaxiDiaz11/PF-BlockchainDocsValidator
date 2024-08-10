@@ -1,4 +1,5 @@
-'use client'
+"use client";
+import { useContext } from "react";
 import {
   Box,
   Divider,
@@ -14,28 +15,18 @@ import {
 } from "@mui/material";
 import {
   AccountCircleOutlined,
-  AdminPanelSettings,
-  CategoryOutlined,
-  ConfirmationNumberOutlined,
-  EscalatorWarningOutlined,
-  FemaleOutlined,
   LoginOutlined,
-  MaleOutlined,
   SearchOutlined,
-  VpnKeyOutlined,
+  DocumentScannerOutlined,
+  NoteAddOutlined,
+  AssignmentTurnedInOutlined,
+  InsertChartOutlined,
 } from "@mui/icons-material";
-import { useContext } from "react";
 import { UiContext } from "@/app/context";
-
-import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export const SideMenu = () => {
   const { toggleSideMenu, isMenuOpen } = useContext(UiContext);
-  
-  const navigateTo = (path: string) => {
-    toggleSideMenu();
-    redirect(path);
-  };
 
   return (
     <Drawer
@@ -60,89 +51,82 @@ export const SideMenu = () => {
             />
           </ListItem>
 
-          <ListItem>
-            <ListItemIcon>
-              <AccountCircleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Perfil"} />
-          </ListItem>
+          <Link href={"/dashboard/profile"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <AccountCircleOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Perfil"} />
+            </ListItem>
+          </Link>
 
-          <ListItem>
-            <ListItemIcon>
-              <ConfirmationNumberOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Mis Ordenes"} />
-          </ListItem>
+          <Link href={"/dashboard/list"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <DocumentScannerOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Mis documentos"} />
+            </ListItem>
+          </Link>
 
-          <ListItem
-            button
-            sx={{ display: { xs: "", sm: "none" } }}
-            onClick={() => navigateTo("/category/men")}
-          >
-            <ListItemIcon>
-              <MaleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Hombres"} />
-          </ListItem>
+          <Link href={"/dashboard/generate"} passHref legacyBehavior>
+            <ListItem
+              button
+              sx={{ display: { xs: "", sm: "none" } }}
+              onClick={() => toggleSideMenu()}
+            >
+              <ListItemIcon>
+                <NoteAddOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Generar  documentos"} />
+            </ListItem>
+          </Link>
 
-          <ListItem
-            button
-            sx={{ display: { xs: "", sm: "none" } }}
-            onClick={() => navigateTo("/category/women")}
-          >
-            <ListItemIcon>
-              <FemaleOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Mujeres"} />
-          </ListItem>
+          <Link href={"/dashboard/validate"} passHref legacyBehavior>
+            <ListItem
+              button
+              sx={{ display: { xs: "", sm: "none" } }}
+              onClick={() => toggleSideMenu()}
+            >
+              <ListItemIcon>
+                <AssignmentTurnedInOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Validar documentos"} />
+            </ListItem>
+          </Link>
 
-          <ListItem
-            button
-            sx={{ display: { xs: "", sm: "none" } }}
-            onClick={() => navigateTo("/category/kid")}
-          >
-            <ListItemIcon>
-              <EscalatorWarningOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Niños"} />
-          </ListItem>
-
-          <ListItem>
-            <ListItemIcon>
-              <VpnKeyOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Ingresar"} />
-          </ListItem>
-
-          <ListItem>
-            <ListItemIcon>
-              <LoginOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Salir"} />
-          </ListItem>
+          {/* User */}
+          <Link href={"/auth/login"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <LoginOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Salir"} />
+            </ListItem>
+          </Link>
 
           {/* Admin */}
           <Divider />
-          <ListSubheader>Admin Panel</ListSubheader>
+          <ListSubheader>Panel de administrador</ListSubheader>
 
           <ListItem>
             <ListItemIcon>
-              <CategoryOutlined />
+              <AssignmentTurnedInOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Productos"} />
+            <ListItemText primary={"Aprobar documentación"} />
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <ConfirmationNumberOutlined />
+              <SearchOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Ordenes"} />
+            <ListItemText primary={"Buscar petición"} />
           </ListItem>
 
           <ListItem>
             <ListItemIcon>
-              <AdminPanelSettings />
+              <InsertChartOutlined />
             </ListItemIcon>
-            <ListItemText primary={"Usuarios"} />
+            <ListItemText primary={"Obtener estadísticas"} />
           </ListItem>
         </List>
       </Box>

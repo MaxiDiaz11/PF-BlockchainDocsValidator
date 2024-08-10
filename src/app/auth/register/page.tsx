@@ -5,7 +5,7 @@ import { AuthLayout } from "@/app/components/layouts";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Registrarse",
+  title: "BS | Registrarse",
   description: "Register page",
 };
 
