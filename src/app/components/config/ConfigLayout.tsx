@@ -1,9 +1,9 @@
 "use client";
+import React from "react";
 import UiProvider from "@/app/context/ui/UiProvider";
 import { lightTheme } from "@/app/themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Inter } from "next/font/google";
-import React from "react";
 import { SWRConfig } from "swr";
 
 const inter = Inter({ subsets: ["latin"] });
