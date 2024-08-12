@@ -15,7 +15,6 @@ export const DocsLayout: FC<Props> = ({
   title,
   imageFullUrl,
 }) => {
-
   //TODO: Implementar redirect a login en caso que no tenga sesion iniciada
 
   return (
