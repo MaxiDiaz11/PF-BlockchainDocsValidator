@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import { NavBar, SideMenu } from "../ui";
+import { ContentDocsLayout, Footer, NavBar, SideMenu } from "../ui";
+import { Box, Container } from "@mui/material";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -18,7 +19,13 @@ export const DocsLayout: FC<Props> = ({
   //TODO: Implementar redirect a login en caso que no tenga sesion iniciada
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh", // Ocupa al menos el 100% de la altura de la ventana
+      }}
+    >
       <Head>
         <title>{title}</title>
         <meta name="description" content={pageDescription} />
@@ -31,17 +38,13 @@ export const DocsLayout: FC<Props> = ({
 
       <SideMenu></SideMenu>
 
-      <main
-        style={{
-          margin: "80px auto",
-          maxWidth: "1440px",
-          padding: "0px 30px",
-        }}
-      >
-        {children}
-      </main>
+      <ContentDocsLayout>
+        <Container maxWidth="lg">{children}</Container>
+      </ContentDocsLayout>
 
-      <footer>{/* TODO: footer */}</footer>
-    </>
+      <footer>
+        <Footer></Footer>
+      </footer>
+    </Box>
   );
 };

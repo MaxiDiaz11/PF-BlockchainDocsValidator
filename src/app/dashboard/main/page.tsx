@@ -44,14 +44,14 @@ const MainPage = () => {
             }}
           />
         </Grid>
-        <Grid item sm={12}>
-          <span className="text-xl">
-            <p>Arroyo, Ignacio</p>
-            <p>Diaz, Maximiliano</p>
-            <p>Guzman, Facundo</p>
-            <p>Soria, Juan Pablo</p>
-          </span>
-        </Grid>
+      </Grid>
+      <Grid item sm={12} sx={{ textAlign: "center", marginTop: 4 }}>
+        <span className="text-xl ">
+          <p>Arroyo, Ignacio</p>
+          <p>Diaz, Maximiliano</p>
+          <p>Guzman, Facundo</p>
+          <p>Soria, Juan Pablo</p>
+        </span>
       </Grid>
     </DocsLayout>
   );

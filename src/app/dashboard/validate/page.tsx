@@ -1,5 +1,8 @@
-import { DocsLayout } from "@/app/components/layouts";
+import { SearchDocsForm } from "@/app/components/form";
+import { DocsLayout, PageLayout } from "@/app/components/layouts";
+import { Box, Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
+import PlagiarismRoundedIcon from "@mui/icons-material/PlagiarismRounded";
 
 export const metadata: Metadata = {
   title: "BS | Validar documentos",
@@ -9,10 +12,37 @@ export const metadata: Metadata = {
 const ValidateDocsPage = () => {
   return (
     <DocsLayout title="Validar documentos" pageDescription="Validar documentos">
-      <div className="text-black p-2">
-        <h1 className="mt-2 text-3xl">Validar</h1>
-        <span className="text-xl">Validar documentos</span>
-      </div>
+      <PageLayout title="Validación de documentos">
+        <Grid item xs={12} md={7} mt={4}>
+          <SearchDocsForm />
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={5}
+          mt={4}
+          display={"flex"}
+          justifyContent={"center"}
+        >
+          <Box
+            sx={{
+              padding: "10px",
+              textAlign: "center",
+              display: { xs: "none", sm: "block" },
+            }}
+          >
+            <Typography variant="h6" mb={2}>
+              Información
+            </Typography>
+            <Typography variant="body1" mb={2}>
+              En esta sección podrás validar y descargar tus documentos de tu
+              interés.
+            </Typography>
+            <PlagiarismRoundedIcon sx={{ fontSize: 150, color: "dark" }} />
+          </Box>
+        </Grid>
+      </PageLayout>
     </DocsLayout>
   );
 };

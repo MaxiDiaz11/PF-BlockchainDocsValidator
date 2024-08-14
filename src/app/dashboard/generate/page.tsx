@@ -1,5 +1,5 @@
-import { DocsLayout } from "@/app/components/layouts";
-import { Grid, Divider, Box, Typography } from "@mui/material";
+import { DocsLayout, PageLayout } from "@/app/components/layouts";
+import { Grid, Box, Typography } from "@mui/material";
 import { Metadata } from "next";
 import { GenerateForm } from "@/app/components/form";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
@@ -12,12 +12,7 @@ export const metadata: Metadata = {
 const GenDocsPage = () => {
   return (
     <DocsLayout title="Generar documentos" pageDescription="Generar documentos">
-      <Grid item className="text-black mt-2" sx={{ textAlign: "center" }}>
-        <h1 className="mt-2 text-3xl">Generación de documentos</h1>
-        <Divider />
-      </Grid>
-
-      <Grid container spacing={2}>
+      <PageLayout title="Generación de documentos">
         <Grid item xs={12} md={7} mt={4}>
           <GenerateForm />
         </Grid>
@@ -47,7 +42,7 @@ const GenDocsPage = () => {
             <UploadFileRoundedIcon sx={{ fontSize: 150, color: "dark" }} />
           </Box>
         </Grid>
-      </Grid>
+      </PageLayout>
     </DocsLayout>
   );
 };
