@@ -7,7 +7,7 @@ export const FullScreenLoading = () => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
-      height="calc(100vh - 200px)"
+      height="calc(100vh - 400px)"
       sx={{ flexDirection: "column" }}
     >
       <Typography variant="h1" component={"h1"} sx={{ mb: 3 }}>

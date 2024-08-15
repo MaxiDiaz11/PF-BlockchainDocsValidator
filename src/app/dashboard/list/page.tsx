@@ -1,5 +1,8 @@
-import { DocsLayout } from "@/app/components/layouts";
+import { DocsLayout, PageLayout } from "@/app/components/layouts";
+import { Box, Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
+import { DocsList } from "@/app/components/ui";
+import FolderCopyRoundedIcon from "@mui/icons-material/FolderCopyRounded";
 
 export const metadata: Metadata = {
   title: "BS | Listar documentos",
@@ -9,10 +12,36 @@ export const metadata: Metadata = {
 const ListDocsPage = () => {
   return (
     <DocsLayout title="Listar documentos" pageDescription="Listar documentos">
-      <div className="text-black p-2">
-        <h1 className="mt-2 text-3xl">Listar</h1>
-        <span className="text-xl">Listar documentos</span>
-      </div>
+      <PageLayout title="Listado de documentos">
+        <Grid item xs={12} md={7} mt={4}>
+          <DocsList />
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={5}
+          mt={4}
+          display={"flex"}
+          justifyContent={"center"}
+        >
+          <Box
+            sx={{
+              padding: "10px",
+              textAlign: "center",
+              display: { xs: "none", sm: "block" },
+            }}
+          >
+            <Typography variant="h6" mb={2}>
+              Información
+            </Typography>
+            <Typography variant="body1" mb={2}>
+              En esta sección podrás encontrar tus documentos.
+            </Typography>
+            <FolderCopyRoundedIcon sx={{ fontSize: 150, color: "dark" }} />
+          </Box>
+        </Grid>
+      </PageLayout>
     </DocsLayout>
   );
 };

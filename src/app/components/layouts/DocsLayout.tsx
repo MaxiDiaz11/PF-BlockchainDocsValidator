@@ -1,6 +1,12 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import { ContentDocsLayout, Footer, NavBar, SideMenu } from "../ui";
+import {
+  ContentDocsLayout,
+  Footer,
+  ModalComponent,
+  NavBar,
+  SideMenu,
+} from "../ui";
 import { Box, Container } from "@mui/material";
 
 interface Props {
@@ -37,6 +43,7 @@ export const DocsLayout: FC<Props> = ({
       </nav>
 
       <SideMenu></SideMenu>
+      <ModalComponent></ModalComponent>
 
       <ContentDocsLayout>
         <Container maxWidth="lg">{children}</Container>

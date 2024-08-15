@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -12,8 +12,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { UiContext } from "@/app/context";
 
 export const GenerateForm = () => {
+  const { toggleModal } = useContext(UiContext);
   const [age, setAge] = useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -29,14 +31,14 @@ export const GenerateForm = () => {
         <Grid item xs={12}>
           <FormControl sx={{ m: 1, width: "100%" }}>
             <InputLabel id="demo-simple-select-helper-label">
-              Documentos
+              Documento
             </InputLabel>
             <Select
               variant="standard"
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={age}
-              label="Documentos"
+              label="Documento"
               fullWidth
               onChange={handleChange}
             >
@@ -48,29 +50,21 @@ export const GenerateForm = () => {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            label="Nombre"
-            type="text"
-            variant="filled"
-            fullWidth
-          ></TextField>
-        </Grid>
-
-        <Grid item xs={12}>
-          <TextField
-            label="Correo institucional"
-            type="email"
-            variant="filled"
-            fullWidth
-          ></TextField>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
             label="Legajo"
             type="number"
             variant="filled"
             fullWidth
           ></TextField>
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Contraseña"
+            type="password"
+            variant="filled"
+            fullWidth
+          ></TextField>
+        </Grid>
+
         <Grid item xs={12}>
           <Button
             color="secondary"
@@ -80,6 +74,18 @@ export const GenerateForm = () => {
             sx={{ mt: 2 }}
           >
             Generar documento
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            color="secondary"
+            className="circular-btn"
+            size="large"
+            variant="outlined"
+            fullWidth
+            onClick={() => toggleModal("requestDoc")}
+          >
+            Solicitar documento especial
           </Button>
         </Grid>
       </Grid>

@@ -41,6 +41,7 @@ const MainPage = () => {
               borderRadius: "50%",
               maxWidth: "100%",
               height: "auto",
+              boxShadow: "0px 10px 15px rgba(0, 0, 0, 0.3)",
             }}
           />
         </Grid>

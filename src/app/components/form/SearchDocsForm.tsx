@@ -1,7 +1,22 @@
-import { Box, Button, Grid, TextField, Typography, Chip } from "@mui/material";
+import { FC } from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Chip,
+  Fab,
+} from "@mui/material";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 
-export const SearchDocsForm = () => {
+interface Props {
+  documentName?: string;
+  documentStatus?: string;
+}
+
+export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
+  console.log(documentName, documentStatus);
   return (
     <>
       <Box sx={{ padding: "10px", textAlign: "center" }}>
@@ -57,9 +72,9 @@ export const SearchDocsForm = () => {
           <Typography variant="body1" sx={{ marginTop: 2, fontWeight: "bold" }}>
             Certificado de alumno regular
           </Typography>
-          <Button className="circular-btn">
+          <Fab className="circular-btn">
             <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
-          </Button>
+          </Fab>
         </Grid>
       </Grid>
     </>
