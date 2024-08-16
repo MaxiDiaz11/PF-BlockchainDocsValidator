@@ -1,6 +1,7 @@
 "use client";
 import { Box, Typography, Grid, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Link from "next/link";
 
 export const FooterContent = () => {
   const theme = useTheme();
@@ -14,7 +15,7 @@ export const FooterContent = () => {
         color: "white",
         padding: theme.spacing(3),
         borderTop: `1px solid ${theme.palette.divider}`,
-        mt: 5,
+        mt: 2,
       }}
     >
       <Grid container spacing={3} alignItems="center">
@@ -38,9 +39,18 @@ export const FooterContent = () => {
           <Typography variant="h6" gutterBottom>
             Contacto
           </Typography>
-          <Typography variant="body2">Dirección: Calle Falsa 123</Typography>
-          <Typography variant="body2">Teléfono: (123) 456-7890</Typography>
-          <Typography variant="body2">Email: info@example.com</Typography>
+          <Typography variant="body2">
+            <b>Dirección:</b> Bernardino Rivadavia 1050, T4001 San Miguel de
+            Tucumán, Tucumán
+          </Typography>
+          <Typography variant="body2">
+            <b>Teléfono:</b> 0381 421-7150
+          </Typography>
+          <Typography variant="body2" sx={{ color: "white", fontSize: 20 }}>
+            <Link href="https://www.frt.utn.edu.ar/" target="_blank">
+              <b>UTN-FRT</b>
+            </Link>
+          </Typography>
         </Grid>
 
         {!isSmallScreen && (

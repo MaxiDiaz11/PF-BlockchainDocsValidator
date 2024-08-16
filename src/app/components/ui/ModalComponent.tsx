@@ -1,14 +1,10 @@
 "use client";
-import React, { FC, useContext } from "react";
+import React, { useContext } from "react";
 import { Modal, Box } from "@mui/material";
 import { UiContext } from "@/app/context";
 import { ModalReqDocContent } from "./ModalReqDocContent";
 
-interface ModalContentProps {
-  children: JSX.Element | JSX.Element[];
-}
-
-export const ModalComponent: FC<ModalContentProps> = ({ children }) => {
+export const ModalComponent = () => {
   const { toggleModal, isModalOpen, modalOption } = useContext(UiContext);
 
   const style = {
@@ -26,11 +22,7 @@ export const ModalComponent: FC<ModalContentProps> = ({ children }) => {
     <div>
       <Modal open={isModalOpen} onClose={toggleModal}>
         <Box sx={style}>
-          {modalOption === "requestDoc" ? (
-            <ModalReqDocContent />
-          ) : (
-            <Box>{children}</Box>
-          )}
+          {modalOption === "requestDoc" ? <ModalReqDocContent /> : <Box></Box>}
         </Box>
       </Modal>
     </div>

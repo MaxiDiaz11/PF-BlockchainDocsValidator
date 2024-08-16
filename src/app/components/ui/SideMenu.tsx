@@ -108,26 +108,30 @@ export const SideMenu = () => {
           {/* Admin */}
           <Divider />
           <ListSubheader>Panel de administrador</ListSubheader>
-
-          <ListItem>
-            <ListItemIcon>
-              <AssignmentTurnedInOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Aprobar documentación"} />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <SearchOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Buscar petición"} />
-          </ListItem>
-
-          <ListItem>
-            <ListItemIcon>
-              <InsertChartOutlined />
-            </ListItemIcon>
-            <ListItemText primary={"Obtener estadísticas"} />
-          </ListItem>
+          <Link href={"/dashboard/admin/aprobar-doc"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <AssignmentTurnedInOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Aprobar documentación"} />
+            </ListItem>
+          </Link>
+          <Link href={"/dashboard/admin/buscar-doc"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <SearchOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Buscar petición"} />
+            </ListItem>
+          </Link>
+          <Link href={"/dashboard/admin/estadisticas"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <InsertChartOutlined />
+              </ListItemIcon>
+              <ListItemText primary={"Obtener estadísticas"} />
+            </ListItem>
+          </Link>
         </List>
       </Box>
     </Drawer>
