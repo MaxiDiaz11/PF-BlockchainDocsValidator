@@ -2,12 +2,15 @@ export const useDocs = () => {
 
   const solicitarDoc = async (documentType: string, legajo: string, sysacadPass: string) => {
     try {
+      const token = getToken()
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL_API}/documents`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify({
               documentType,
@@ -31,12 +34,14 @@ export const useDocs = () => {
 
   const getDocs = async () => {
     try {
+      const token = getToken()
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_URL_API}/documents`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
         }
       );
@@ -80,9 +85,19 @@ export const useDocs = () => {
     }
   };
 
+  const getToken = () => {
+    const token = sessionStorage.getItem('authToken');
+        if (!token) {
+          throw new Error("No authentication token found");
+        }
+    return token
+  }
+
   return {
     getDocs,
     solicitarDoc,
     validateDoc
   };
 };
+
+

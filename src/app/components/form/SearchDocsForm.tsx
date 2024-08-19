@@ -1,4 +1,5 @@
-import { FC } from "react";
+"use client"
+import { FC, useState } from "react";
 import {
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   Fab,
 } from "@mui/material";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
+import { useDocs } from "@/app/hooks/useDocs";
 
 interface Props {
   documentName?: string;
@@ -16,7 +18,21 @@ interface Props {
 }
 
 export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
-  console.log(documentName, documentStatus);
+
+  const [hash,setHash] = useState("")
+  const {validateDoc} = useDocs()
+
+  const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); 
+    try {
+      const data = await validateDoc(hash)
+      console.log(data)
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
+
+
   return (
     <>
       <Box sx={{ padding: "10px", textAlign: "center" }}>
@@ -26,10 +42,12 @@ export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              label="Código de validación"
+              label="Hash del documento"
               type="text"
               variant="filled"
               fullWidth
+              value={hash}
+              onChange={e => setHash(e.target.value)}
             ></TextField>
           </Grid>
 
@@ -40,6 +58,7 @@ export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
               size="large"
               fullWidth
               sx={{ mt: 2 }}
+              onClick={handleSubmit}
             >
               Buscar documento
             </Button>
