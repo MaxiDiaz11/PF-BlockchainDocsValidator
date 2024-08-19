@@ -1,3 +1,4 @@
+export * from "./AproveTable";
 export * from "./ContentDocsLayout";
 export * from "./DocsList";
 export * from "./Footer";
@@ -5,4 +6,4 @@ export * from "./FullScreenLoading";
 export * from "./ModalComponent";
 export * from "./NavBar";
 export * from "./SideMenu";
-export * from "./BarChartComponent"
+export * from "./BarChartComponent";
