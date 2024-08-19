@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import NextLink from "next/link";
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "@/app/components/layouts";
 import { Metadata } from "next";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export const metadata: Metadata = {
   title: "BS | Ingresar",
@@ -10,6 +11,23 @@ export const metadata: Metadata = {
 };
 
 const LoginPage = () => {
+  const { login } = useAuth(); 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); 
+  const [role] = useState(1); 
+
+  const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); 
+    try {
+      const data = await login(email, password, role); 
+      console.log("Login successful:", data); 
+      
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
+
+
   return (
     <AuthLayout title={"Ingresar"}>
       <Box sx={{ width: 350, padding: "10px 20px" }}>
@@ -25,6 +43,8 @@ const LoginPage = () => {
               type="text"
               variant="filled"
               fullWidth
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             ></TextField>
           </Grid>
           <Grid item xs={12}>
@@ -33,6 +53,8 @@ const LoginPage = () => {
               type="password"
               variant="filled"
               fullWidth
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             ></TextField>
           </Grid>
           <Grid item xs={12}>
@@ -41,6 +63,7 @@ const LoginPage = () => {
               className="circular-btn"
               size="large"
               fullWidth
+              type="submit"
             >
               Ingresar
             </Button>
