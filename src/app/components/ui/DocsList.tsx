@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   IconButton,
@@ -12,8 +12,15 @@ import {
 import FolderIcon from "@mui/icons-material/Folder";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
+import { useDocs } from "@/app/hooks/useDocs";
 
 export const DocsList = () => {
+  const { getDocs } = useDocs();
+
+  useEffect(() => {
+    getDocs();
+  }, []);
+
   const renderRow = (props: ListChildComponentProps) => {
     const { index, style } = props;
 
