@@ -1,16 +1,50 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Box,
   Button,
   Fab,
   Grid,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
+import {useSpecialDocs} from "@/app/hooks/useSpecialDocs"
 
 export const SearchDocAdmin = () => {
+
+  const [legajo,setLegajo] = useState("")
+  const [name,setName] = useState("")
+  const [status, setStatus] = useState(0)
+  const {filterSpecialDoc} = useSpecialDocs();
+
+  useEffect(() => {
+    try {
+      const data = filterSpecialDoc(status,name,legajo)
+
+    } catch (error) {
+      console.error("Error getting files", error);
+    }
+  },[])
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setStatus(Number(event.target.value));
+  };
+
+  const searchDocs = async (event : React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    try {
+      const data = await filterSpecialDoc(status,name,legajo)
+
+    } catch (error) {
+      console.error("Error getting files", error);
+    }
+  }
+
   return (
     <>
       <Box sx={{ padding: "10px", textAlign: "center" }}>
@@ -20,11 +54,32 @@ export const SearchDocAdmin = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              label="Nombre | Legajo | Estado"
+              label="Legajo"
               type="text"
               variant="filled"
               fullWidth
+              onChange={evt => setLegajo(evt.target.value)}
             ></TextField>
+            <TextField
+              label="Nombre"
+              type="text"
+              variant="filled"
+              fullWidth
+              onChange={evt => setName(evt.target.value)}
+
+            ></TextField>
+            <Select
+              variant="standard"
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              label="Documento"
+              fullWidth
+              onChange={handleChange}
+            >
+              <MenuItem value={0}>Pendiente</MenuItem>
+              <MenuItem value={1}>Aprobado</MenuItem>
+              <MenuItem value={2}>Rechazado</MenuItem>
+            </Select>
           </Grid>
 
           <Grid item xs={12}>

@@ -1,4 +1,4 @@
-const useSpecialDocs = () => {
+export const useSpecialDocs = () => {
 
     const uploadDocument = async (file : File) => {
         const formData = new FormData();
@@ -22,7 +22,7 @@ const useSpecialDocs = () => {
           }
     };
 
-    const updateStatus = async (status: number, specialDocumentId: number){
+    const updateStatus = async (status: number, specialDocumentId: number) => {
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/special-documents`, {
               method: "PUT",
