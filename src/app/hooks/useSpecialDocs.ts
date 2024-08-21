@@ -3,11 +3,17 @@ export const useSpecialDocs = () => {
     const uploadDocument = async (file : File) => {
         const formData = new FormData();
         formData.append("file", file);
+        
+        const token = getToken()
+
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/special-documents`, {
               method: "POST",
               body: formData,
+              headers: {
+                "Authorization": `Bearer ${token}`,
+              },
             });
         
             if (!response.ok) {
@@ -80,6 +86,13 @@ export const useSpecialDocs = () => {
           }
     }
 
+    const getToken = () => {
+      const token = sessionStorage.getItem('authToken');
+          if (!token) {
+            throw new Error("No authentication token found");
+          }
+      return token
+    }
 
     return {
         uploadDocument,
