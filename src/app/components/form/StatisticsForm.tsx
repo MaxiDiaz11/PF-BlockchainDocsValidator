@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -16,10 +16,18 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Dayjs } from "dayjs";
 import BarChartComponent from "../ui/BarChartComponent";
+import { useStatistics } from "@/app/hooks/useStatistics";
 
 export const StatisticsForm = () => {
   const [age, setAge] = useState("");
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+
+  const {getStatisticsData} = useStatistics()
+
+  useEffect(()=> {
+    const data = getStatisticsData()
+    console.log(data)
+  }, [])
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value);
