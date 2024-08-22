@@ -30,10 +30,13 @@ export const useSpecialDocs = () => {
 
     const updateStatus = async (status: number, specialDocumentId: number) => {
         try {
+            const token = getToken()
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/special-documents`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
               },
               body: JSON.stringify({
                 status,
@@ -97,7 +100,7 @@ export const useSpecialDocs = () => {
     return {
         uploadDocument,
         updateStatus,
-        filterSpecialDoc
+        filterSpecialDoc,
     }
 
 

@@ -12,8 +12,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 import {useSpecialDocs} from "@/app/hooks/useSpecialDocs"
+import { ListItem, ListItemAvatar, ListItemText } from "../../../../node_modules/@mui/material/index";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
+import { useRouter } from "../../../../node_modules/next/navigation";
 
 export const SearchDocAdmin = () => {
 
@@ -21,11 +23,16 @@ export const SearchDocAdmin = () => {
   const [name,setName] = useState("")
   const [status, setStatus] = useState(0)
   const {filterSpecialDoc} = useSpecialDocs();
+  const [specialDocuments,setSpecialDocuments] = useState([])
+  const router = useRouter();
 
   useEffect(() => {
     try {
-      const data = filterSpecialDoc(status,name,legajo)
-
+      filterSpecialDoc(status,name,legajo).then(
+        data => {
+          setSpecialDocuments(data)
+        }
+      )
     } catch (error) {
       console.error("Error getting files", error);
     }
@@ -44,6 +51,67 @@ export const SearchDocAdmin = () => {
       console.error("Error getting files", error);
     }
   }
+
+  const goToEvaluarDocument = (hash : string) => {
+    router.push(`/dashboard/admin/aprobar-doc/${hash}`);
+  }
+
+  const renderSpecialDocumentRow = (props: ListChildComponentProps) => {
+    const { index, style } = props;
+    const document : any = specialDocuments[index];
+
+    let backgroundColor;
+    switch (document.status) {
+      case "Pendiente":
+        backgroundColor = "yellow";
+        break;
+      case "Aprobado":
+        backgroundColor = "green";
+        break;
+      case "Rechazado":
+        backgroundColor = "red";
+        break;
+      default:
+        backgroundColor = "yellow";
+    }
+
+
+    return (
+      <ListItem
+        key={index}
+        component="div"
+        style={style}
+        secondaryAction={
+          <Button 
+            color="secondary"
+            className="circular-btn"
+            onClick={e => goToEvaluarDocument(document.id)}
+            >
+                  Evaluar
+          </Button>
+        }
+      >
+        <ListItemText primary={document.name} />
+        <ListItemText
+          primary={document.uploadDate}
+          sx={{
+            display: { xs: "none", sm: "block" },
+          }}
+        />
+        <ListItemText
+        primary={document.status}
+        sx={{
+          backgroundColor: backgroundColor,
+          color: "black", // Font color
+          fontWeight: "bold",
+          padding: "4px 8px",
+          borderRadius: "4px",
+          display: { xs: "none", sm: "block" },
+        }}
+      />
+      </ListItem>
+    );
+  };
 
   return (
     <>
@@ -89,32 +157,25 @@ export const SearchDocAdmin = () => {
               size="large"
               fullWidth
               sx={{ mt: 2 }}
+              onClick = {e => searchDocs(e)}
             >
               Buscar documento
             </Button>
           </Grid>
         </Grid>
       </Box>
-
-      {/* TODO: SI se encuentra documento mostrar lo de abajo */}
-      <Grid item xs={12} sx={{ marginTop: 4 }}>
-        {/* TODO: if hay documento mostrar lo de abajo, sino mensaje de error */}
-        <Typography variant="h6" sx={{ marginTop: 3 }}>
-          Documento a descargar:
-        </Typography>
-        <Grid sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Typography variant="body1" sx={{ marginTop: 3 }}>
-            Certificado de ALUMNO REGULAR{" "}
-          </Typography>
-          <Fab className="circular-btn">
-            <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
-          </Fab>
-        </Grid>
-
-        <Alert variant="outlined" severity="error" sx={{ marginTop: 2 }}>
-          No encontramos el documento solicitado
-        </Alert>
+      <Grid item xs={12}>
+      <FixedSizeList
+          height={500}
+          width="100%"
+          itemSize={50}
+          itemCount={specialDocuments?.length}
+          overscanCount={10}
+        >
+          {renderSpecialDocumentRow}
+        </FixedSizeList>
       </Grid>
+
     </>
   );
 };

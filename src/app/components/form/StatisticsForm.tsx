@@ -11,27 +11,32 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
 import BarChartComponent from "../ui/BarChartComponent";
 import { useStatistics } from "@/app/hooks/useStatistics";
+import AverageReviewTimeComponent from "../ui/AverageReviewTimeComponent";
+import HighestDemandComponent from "../ui/HighestDemandComponent";
+import TotalDocumentComponent from "../ui/TotalDocumentComponent";
 
 export const StatisticsForm = () => {
-  const [age, setAge] = useState("");
-  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
 
+  const [documentsByMonth,setDocumentsByMonth] = useState([]);
+  const [averageReviewTime,setAverageReviewTime] = useState(0);
+  const [totalDocument,setTotalDocument] = useState(0);
+  const [highestDemand,setHighestDemand] = useState({
+    month:'',
+    total_count:0
+  });
+  
   const {getStatisticsData} = useStatistics()
 
   useEffect(()=> {
-    const data = getStatisticsData()
-    console.log(data)
+    getStatisticsData().then(response => {
+      setDocumentsByMonth(response.documentsByMonth);
+      setAverageReviewTime(response.averageReviewTime);
+      setHighestDemand(response.highestDemand);
+      setTotalDocument(response.totalDocument);
+    })
   }, [])
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
 
   return (
     <Box sx={{ padding: "10px", textAlign: "center" }}>
@@ -48,10 +53,8 @@ export const StatisticsForm = () => {
               variant="standard"
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={age}
               label="Documento"
               fullWidth
-              onChange={handleChange}
             >
               <MenuItem value={10}>Número de documentos por mes</MenuItem>
               <MenuItem value={20}>Mes con más demanda de solicitudes</MenuItem>
@@ -61,37 +64,6 @@ export const StatisticsForm = () => {
               <MenuItem value={30}>Total de documentos</MenuItem>
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item xs={12} sx={{ display: "flex", marginY: 2 }}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item>
-                <DatePicker
-                  label="Desde"
-                  value={selectedDate}
-                  onChange={(newDate) => {
-                    setSelectedDate(newDate);
-                  }}
-                  slotProps={{ textField: { fullWidth: true } }}
-                />
-              </Grid>
-            </Grid>
-          </LocalizationProvider>
-
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item>
-                <DatePicker
-                  label="Hasta"
-                  value={selectedDate}
-                  onChange={(newDate) => {
-                    setSelectedDate(newDate);
-                  }}
-                  slotProps={{ textField: { fullWidth: true } }}
-                />
-              </Grid>
-            </Grid>
-          </LocalizationProvider>
         </Grid>
         <Grid item xs={12}>
           <Button
@@ -106,7 +78,10 @@ export const StatisticsForm = () => {
         </Grid>
 
         <Grid item xs={12} sx={{ marginTop: 2 }}>
-          <BarChartComponent />
+          <BarChartComponent documentsByMonth={documentsByMonth}/>
+          <AverageReviewTimeComponent averageReviewTime={averageReviewTime}/>
+          <HighestDemandComponent highestDemand={highestDemand}/>
+          <TotalDocumentComponent totalDocument={totalDocument}/>
         </Grid>
       </Grid>
     </Box>

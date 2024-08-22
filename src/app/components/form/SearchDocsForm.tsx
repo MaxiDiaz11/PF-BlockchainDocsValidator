@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 import { useDocs } from "@/app/hooks/useDocs";
+import { IconButton } from "../../../../node_modules/@mui/material/index";
 
 interface Props {
   documentName?: string;
@@ -19,17 +20,25 @@ interface Props {
 
 export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
 
-  const [hash,setHash] = useState("")
-  const {validateDoc} = useDocs()
+  const [hash, setHash] = useState("")
+  const { validateDoc } = useDocs()
+  const [fileFromBlockchain, setFileFromBlockchain] = useState<any>();
+  const [fileFound, setFileFound] = useState(false);
 
-  const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       const data = await validateDoc(hash)
-      console.log(data)
+      setFileFromBlockchain(data)
+      setFileFound(true);
     } catch (err) {
-      console.error("Login failed:", err);
+      console.error("File doesnt exist:", err);
+      setFileFound(false)
     }
+  };
+
+  const openLinkInNewTab = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
 
@@ -72,29 +81,40 @@ export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
         </Typography>
 
         <Typography variant="body1" sx={{ marginTop: 3 }}>
-          Estado: <Chip label="Documento válido" color="success" />
+          Estado: <Chip label={fileFound ? 'Documento Valido' : 'Documento No Encontrado'} color={fileFound ? 'success' : 'error'} />
         </Typography>
 
-        <Grid
-          item
-          xs={12}
-          sx={{
-            border: "1px solid",
-            paddingX: 2,
-            paddingY: 1,
-            marginTop: 3,
-            borderRadius: 10,
-            textAlign: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="body1" sx={{ marginTop: 2, fontWeight: "bold" }}>
-            Certificado de alumno regular
-          </Typography>
-          <Fab className="circular-btn">
-            <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
-          </Fab>
-        </Grid>
+
+        {
+          fileFound ?
+          <Grid
+            item
+            xs={12}
+            sx={{
+              border: "1px solid",
+              paddingX: 2,
+              paddingY: 1,
+              marginTop: 3,
+              borderRadius: 10,
+              textAlign: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body1" sx={{ marginTop: 2, fontWeight: "bold" }}>
+              {fileFromBlockchain?.name}
+            </Typography>
+            <Typography variant="body1" sx={{ marginY: 2, fontWeight: "bold" }}>
+              {fileFromBlockchain?.uploadDate}
+            </Typography>
+            <IconButton className="circular-btn"
+            onClick={e => openLinkInNewTab(`https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`)}
+            >
+              <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
+            </IconButton>
+          </Grid>
+          : <></>
+        }
+
       </Grid>
     </>
   );
