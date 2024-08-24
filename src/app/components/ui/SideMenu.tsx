@@ -108,14 +108,6 @@ export const SideMenu = () => {
           {/* Admin */}
           <Divider />
           <ListSubheader>Panel de administrador</ListSubheader>
-          <Link href={"/dashboard/admin/aprobar-doc"} passHref legacyBehavior>
-            <ListItem button onClick={() => toggleSideMenu()}>
-              <ListItemIcon>
-                <AssignmentTurnedInOutlined />
-              </ListItemIcon>
-              <ListItemText primary={"Aprobar documentación"} />
-            </ListItem>
-          </Link>
           <Link href={"/dashboard/admin/buscar-doc"} passHref legacyBehavior>
             <ListItem button onClick={() => toggleSideMenu()}>
               <ListItemIcon>

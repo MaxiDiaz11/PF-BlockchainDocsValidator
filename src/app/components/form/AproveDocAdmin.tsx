@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import AproveTable from "../ui/AproveTable";
+import AproveTable from "../ui/DocListTable";
 
 import { usePathname } from 'next/navigation'
 import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
@@ -36,18 +36,23 @@ export const AproveDocAdmin = () => {
           Aprobar documento
         </Typography>
         <Grid container spacing={2}>
-          <iframe
-            src={`${process.env.NEXT_PUBLIC_URL_API}/special-documents/id?${queryParams}`}
-            height="100%"
-            width="100%"
-          ></iframe>
-          <ButtonGroup 
+          <Grid item sx={{width: "100%", height: "50vh"}}>
+            <iframe
+              src={`${process.env.NEXT_PUBLIC_URL_API}/special-documents/id?${queryParams}`}
+              height="100%"
+              width="100%"
+            ></iframe>
+          </Grid>
+          <Grid item
+           sx={{ diplay:"flex",marginTop:4, justifyContent:"center", mx:"auto"}}>
+            <ButtonGroup
+              disableElevation
+              variant="contained" >
+                    <Button color='success' onClick={e => onAprobarDoc(e)}>Aprobar</Button>
+                    <Button color='error' onClick={e => onRechazarDoc(e)}>Rechazar</Button>
+              </ButtonGroup>
+          </Grid>
           
-          disableElevation
-          variant="contained" >
-              <Button color='success' onClick={e => onAprobarDoc(e)}>Aprobado</Button>
-              <Button color='error' onClick={e => onRechazarDoc(e)}>Rechazado</Button>
-          </ButtonGroup>
         </Grid>
 
       </Box>

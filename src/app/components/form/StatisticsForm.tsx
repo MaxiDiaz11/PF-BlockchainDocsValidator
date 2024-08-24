@@ -30,7 +30,7 @@ export const StatisticsForm = () => {
   const {getStatisticsData} = useStatistics()
 
   useEffect(()=> {
-    getStatisticsData().then(response => {
+     getStatisticsData().then(response => {
       setDocumentsByMonth(response.documentsByMonth);
       setAverageReviewTime(response.averageReviewTime);
       setHighestDemand(response.highestDemand);
@@ -41,42 +41,9 @@ export const StatisticsForm = () => {
   return (
     <Box sx={{ padding: "10px", textAlign: "center" }}>
       <Typography variant="h6" mb={2}>
-        Elegir la estadística a generar
+          Estadisticas
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <FormControl sx={{ m: 1, width: "100%" }}>
-            <InputLabel id="demo-simple-select-helper-label">
-              Estadística a generar
-            </InputLabel>
-            <Select
-              variant="standard"
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              label="Documento"
-              fullWidth
-            >
-              <MenuItem value={10}>Número de documentos por mes</MenuItem>
-              <MenuItem value={20}>Mes con más demanda de solicitudes</MenuItem>
-              <MenuItem value={30}>
-                Tiempo promedio de revisión de solicitudes
-              </MenuItem>
-              <MenuItem value={30}>Total de documentos</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            color="secondary"
-            className="circular-btn"
-            size="large"
-            fullWidth
-            sx={{ mt: 2 }}
-          >
-            Generar documento
-          </Button>
-        </Grid>
-
         <Grid item xs={12} sx={{ marginTop: 2 }}>
           <BarChartComponent documentsByMonth={documentsByMonth}/>
           <AverageReviewTimeComponent averageReviewTime={averageReviewTime}/>
