@@ -30,13 +30,18 @@ export const GenerateForm = () => {
   const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); 
     try {
-      const data = await solicitarDoc(document,legajo,sysacadPass)
+      const data = await solicitarDoc(document,legajo,sysacadPass).then(
+        data => openLinkInNewTab(data.url)
+      )
       console.log(data)
     } catch (err) {
       console.error("Login failed:", err);
     }
   };
 
+  const openLinkInNewTab= (url : string) => {
+    window.open(url, "_blank");
+  }
 
   return (
     <Box sx={{ padding: "10px", textAlign: "center" }}>
