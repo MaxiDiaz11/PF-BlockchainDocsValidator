@@ -1,4 +1,5 @@
 import React from "react";
+import { getDate } from "../../util/utils";
 import {
   Paper,
   Table,
@@ -9,15 +10,11 @@ import {
   TableRow,
 } from "@mui/material";
 
-interface DocListTableProps{
-
-  rows:Array<any>
-
+interface DocListTableProps {
+  rows: Array<any>;
 }
 
-const DocListTable : React.FC<DocListTableProps> =  ({rows}) => {
-  
-
+const DocListTable: React.FC<DocListTableProps> = ({ rows }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -44,7 +41,7 @@ const DocListTable : React.FC<DocListTableProps> =  ({rows}) => {
                 {row.name}
               </TableCell>
               <TableCell align="center">{row.hash}</TableCell>
-              <TableCell align="center">{row.uploadDate}</TableCell>
+              <TableCell align="center">{getDate(row.uploadDate)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

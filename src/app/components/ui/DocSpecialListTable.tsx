@@ -9,17 +9,15 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { getDate } from "@/app/util/utils";
+import { getNombreDoc } from "../../util/utils";
 
-interface DocListTableProps{
-
-  rows:Array<any>
-
+interface DocListTableProps {
+  rows: Array<any>;
 }
 
-const DocSpecialListTable : React.FC<DocListTableProps> =  ({rows}) => {
-  
-
-  const getStatusColor= (status : string) => {
+const DocSpecialListTable: React.FC<DocListTableProps> = ({ rows }) => {
+  const getStatusColor = (status: string) => {
     let backgroundColor;
     switch (status) {
       case "Pendiente":
@@ -34,9 +32,8 @@ const DocSpecialListTable : React.FC<DocListTableProps> =  ({rows}) => {
       default:
         backgroundColor = "warning";
     }
-    return backgroundColor
-  }
-
+    return backgroundColor;
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -64,14 +61,13 @@ const DocSpecialListTable : React.FC<DocListTableProps> =  ({rows}) => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row" align="center">
-                {row.name}
+                {getNombreDoc(row.name)}
               </TableCell>
               <TableCell align="center">{row.hash}</TableCell>
               <TableCell align="center">
-                <Chip label={row.status} color={getStatusColor(row.status)}/>
-                
+                <Chip label={row.status} color={getStatusColor(row.status)} />
               </TableCell>
-              <TableCell align="center">{row.uploadDate}</TableCell>
+              <TableCell align="center">{getDate(row.uploadDate)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

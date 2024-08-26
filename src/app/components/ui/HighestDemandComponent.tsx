@@ -1,4 +1,5 @@
 "use client";
+import { Grid, Typography } from "@mui/material";
 import * as React from "react";
 
 const monthNames: { [key: string]: string } = {
@@ -23,21 +24,30 @@ interface HighestDemandProps {
   };
 }
 
-const HighestDemandComponent: React.FC<HighestDemandProps> = ({ highestDemand }) => {
+const HighestDemandComponent: React.FC<HighestDemandProps> = ({
+  highestDemand,
+}) => {
   const [year, monthNumber] = highestDemand.month.split("-");
 
   const monthName = monthNames[monthNumber];
 
   return (
-    <div style={{ textAlign: 'center', margin: '20px 0' }}>
-      <h2>Mayor Demanda</h2>
-      <p style={{ fontSize: '20px', margin: '5px 0' }}>
-        Mes: <strong>{monthName} {year}</strong>
-      </p>
-      <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-        Total: {highestDemand.total_count}
-      </p>
-    </div>
+    <>
+      <Grid item sx={{ marginTop: 1 }}>
+        <Typography variant="h6">
+          Mes de mayor Demanda:{" "}
+          <b>
+            {monthName} {year}
+          </b>
+        </Typography>
+      </Grid>
+      <Grid item sx={{ marginTop: 1 }}>
+        <Typography variant="h6">
+          Total de documentos en la Blockchain:{" "}
+          <b>{highestDemand.total_count}</b>
+        </Typography>
+      </Grid>
+    </>
   );
 };
 

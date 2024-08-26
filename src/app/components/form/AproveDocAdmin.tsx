@@ -1,8 +1,6 @@
 "use client"
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import AproveTable from "../ui/DocListTable";
-
 import { usePathname } from 'next/navigation'
 import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
 import { Button, ButtonGroup } from "../../../../node_modules/@mui/material/index";

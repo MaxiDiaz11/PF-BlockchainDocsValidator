@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { FC, useState } from "react";
 import {
   Box,
@@ -18,29 +18,27 @@ interface Props {
   documentStatus?: string;
 }
 
-export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
-
-  const [hash, setHash] = useState("")
-  const { validateDoc } = useDocs()
+export const SearchDocsForm: FC = () => {
+  const [hash, setHash] = useState("");
+  const { validateDoc } = useDocs();
   const [fileFromBlockchain, setFileFromBlockchain] = useState<any>();
   const [fileFound, setFileFound] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const data = await validateDoc(hash)
-      setFileFromBlockchain(data)
+      const data = await validateDoc(hash);
+      setFileFromBlockchain(data);
       setFileFound(true);
     } catch (err) {
       console.error("File doesnt exist:", err);
-      setFileFound(false)
+      setFileFound(false);
     }
   };
 
   const openLinkInNewTab = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(url, "_blank", "noopener,noreferrer");
   };
-
 
   return (
     <>
@@ -56,7 +54,7 @@ export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
               variant="filled"
               fullWidth
               value={hash}
-              onChange={e => setHash(e.target.value)}
+              onChange={(e) => setHash(e.target.value)}
             ></TextField>
           </Grid>
 
@@ -76,45 +74,59 @@ export const SearchDocsForm: FC<Props> = ({ documentName, documentStatus }) => {
       </Box>
 
       <Grid item xs={12} sx={{ marginTop: 4 }}>
-        <Typography variant="h6" sx={{ marginTop: 3 }}>
-          Tipo de certificado:
-        </Typography>
-
-        <Typography variant="body1" sx={{ marginTop: 3 }}>
-          Estado: <Chip label={fileFound ? 'Documento Valido' : 'Documento No Encontrado'} color={fileFound ? 'success' : 'error'} />
-        </Typography>
-
-
-        {
-          fileFound ?
-          <Grid
-            item
-            xs={12}
-            sx={{
-              border: "1px solid",
-              paddingX: 2,
-              paddingY: 1,
-              marginTop: 3,
-              borderRadius: 10,
-              textAlign: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="body1" sx={{ marginTop: 2, fontWeight: "bold" }}>
-              {fileFromBlockchain?.name}
+        {fileFound && (
+          <>
+            <Typography variant="h6" sx={{ marginTop: 3 }}>
+              Tipo de certificado:
             </Typography>
-            <Typography variant="body1" sx={{ marginY: 2, fontWeight: "bold" }}>
-              {fileFromBlockchain?.uploadDate}
+
+            <Typography variant="body1" sx={{ marginTop: 3 }}>
+              Estado:{" "}
+              <Chip
+                label={
+                  fileFound ? "Documento Valido" : "Documento No Encontrado"
+                }
+                color={fileFound ? "success" : "error"}
+              />
             </Typography>
-            <IconButton className="circular-btn"
-            onClick={e => openLinkInNewTab(`https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`)}
+            <Grid
+              item
+              xs={12}
+              sx={{
+                border: "1px solid",
+                paddingX: 2,
+                paddingY: 1,
+                marginTop: 3,
+                borderRadius: 10,
+                textAlign: "center",
+                alignItems: "center",
+              }}
             >
-              <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
-            </IconButton>
-          </Grid>
-          : <></>
-        }
-
+              <Typography
+                variant="body1"
+                sx={{ marginTop: 2, fontWeight: "bold" }}
+              >
+                {fileFromBlockchain?.name}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ marginY: 2, fontWeight: "bold" }}
+              >
+                {fileFromBlockchain?.uploadDate}
+              </Typography>
+              <IconButton
+                className="circular-btn"
+                onClick={(e) =>
+                  openLinkInNewTab(
+                    `https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`
+                  )
+                }
+              >
+                <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Grid>
+          </>
+        )}
       </Grid>
     </>
   );

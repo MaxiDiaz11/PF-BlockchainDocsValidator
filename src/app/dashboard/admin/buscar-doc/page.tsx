@@ -17,14 +17,14 @@ const SearchDocPage = () => {
       pageDescription="Busqueda de documentos"
     >
       <PageLayout title="Buscar documentos">
-        <Grid item xs={12} md={7} mt={4}>
+        <Grid item xs={12} md={9} mt={4}>
           <SearchDocAdmin />
         </Grid>
 
         <Grid
           item
           xs={12}
-          md={5}
+          md={3}
           mt={4}
           display={"flex"}
           justifyContent={"center"}

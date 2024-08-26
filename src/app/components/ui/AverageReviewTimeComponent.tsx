@@ -1,17 +1,20 @@
 "use client";
+import { Typography } from "@mui/material";
 import * as React from "react";
 
 interface AverageReviewTimeProps {
   averageReviewTime: number;
 }
 
-const AverageReviewTimeComponent: React.FC<AverageReviewTimeProps> = ({ averageReviewTime }) => {
+const AverageReviewTimeComponent: React.FC<AverageReviewTimeProps> = ({
+  averageReviewTime,
+}) => {
   return (
-    <div style={{ textAlign: 'center', margin: '20px 0' }}>
-      <h2>Tiempo Promedio de Revision de Documentos</h2>
-      <p style={{ fontSize: '24px', fontWeight: 'bold' }}>
-        {averageReviewTime.toFixed(1)} Dias
-      </p>
+    <div>
+      <Typography variant="h6">
+        Tiempo Promedio de Revision de Documentos:{" "}
+        <b>{averageReviewTime.toFixed(1)} días</b>
+      </Typography>
     </div>
   );
 };

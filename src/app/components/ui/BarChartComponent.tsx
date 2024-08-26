@@ -87,7 +87,7 @@ export default function BarChartComponent({ documentsByMonth }: BarChartComponen
         series={[
           {
             dataKey: "count",
-            label: "Documentos por Mes",
+            label: "Documentos por mes",
             valueFormatter,
           },
         ]}
