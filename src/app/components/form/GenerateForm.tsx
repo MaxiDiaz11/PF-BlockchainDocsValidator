@@ -27,7 +27,7 @@ export const GenerateForm = () => {
   };
 
 
-  const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event : React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault(); 
     try {
       const data = await solicitarDoc(document,legajo,sysacadPass).then(

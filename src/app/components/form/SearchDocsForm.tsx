@@ -24,7 +24,7 @@ export const SearchDocsForm: FC = () => {
   const [fileFromBlockchain, setFileFromBlockchain] = useState<any>();
   const [fileFound, setFileFound] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
       const data = await validateDoc(hash);

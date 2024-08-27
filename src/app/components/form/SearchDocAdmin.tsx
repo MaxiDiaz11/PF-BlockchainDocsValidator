@@ -41,7 +41,7 @@ export const SearchDocAdmin = () => {
     setStatus(Number(event.target.value));
   };
 
-  const searchDocs = async (event: React.FormEvent<HTMLFormElement>) => {
+  const searchDocs = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
       const data = await filterSpecialDoc(status, name, legajo);

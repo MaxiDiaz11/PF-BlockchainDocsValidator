@@ -16,24 +16,28 @@ interface DocListTableProps {
   rows: Array<any>;
 }
 
+type ChipColor = "primary" | "secondary" | "success" | "error" | "info" | "warning" | "default";
+
+
 const DocSpecialListTable: React.FC<DocListTableProps> = ({ rows }) => {
-  const getStatusColor = (status: string) => {
-    let backgroundColor;
+  const getStatusColor = (status: string): ChipColor => {
+    let backgroundColor: ChipColor;
     switch (status) {
-      case "Pendiente":
-        backgroundColor = "warning";
-        break;
-      case "Aprobado":
-        backgroundColor = "success";
-        break;
-      case "Rechazado":
-        backgroundColor = "error";
-        break;
-      default:
-        backgroundColor = "warning";
+        case "Pendiente":
+            backgroundColor = "warning";
+            break;
+        case "Aprobado":
+            backgroundColor = "success";
+            break;
+        case "Rechazado":
+            backgroundColor = "error";
+            break;
+        default:
+            backgroundColor = "warning";
     }
     return backgroundColor;
-  };
+};
+
 
   return (
     <TableContainer component={Paper}>

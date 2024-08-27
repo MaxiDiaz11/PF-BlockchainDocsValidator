@@ -28,7 +28,9 @@ export const ModalReqDocContent = () => {
       <Input
         type="file"
         name="file"
-        accept="application/pdf" 
+        inputProps={{
+          inputProps: { accept: 'application/pdf' }
+        }}
         onChange={handleFileChange}
         sx={{ mb: 2 }}
       />
