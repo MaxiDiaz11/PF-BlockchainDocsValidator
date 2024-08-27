@@ -5,12 +5,15 @@ import { Box, Grid, Typography } from "@mui/material";
 import { AproveDocAdmin } from "@/app/components/form";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
 
+
 export const metadata: Metadata = {
   title: "BS | Aprobar documentos",
   description: "Aprobación de documentos",
 };
-
 const AproveDocPage = () => {
+
+  
+
   return (
     <DocsLayout
       title="Aprobar documentación"

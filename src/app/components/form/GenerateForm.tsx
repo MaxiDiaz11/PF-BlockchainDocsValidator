@@ -13,14 +13,35 @@ import {
   Typography,
 } from "@mui/material";
 import { UiContext } from "@/app/context";
+import { useDocs } from "@/app/hooks/useDocs";
 
 export const GenerateForm = () => {
   const { toggleModal } = useContext(UiContext);
-  const [age, setAge] = useState("");
+  const [document, setDocument] = useState("");
+  const [legajo, setLegajo] = useState("");
+  const [sysacadPass, setSysacadPass] = useState("");
+  const { solicitarDoc } = useDocs();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+    setDocument(event.target.value);
   };
+
+
+  const handleSubmit = async (event : React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault(); 
+    try {
+      const data = await solicitarDoc(document,legajo,sysacadPass).then(
+        data => openLinkInNewTab(data.url)
+      )
+      console.log(data)
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
+  };
+
+  const openLinkInNewTab= (url : string) => {
+    window.open(url, "_blank");
+  }
 
   return (
     <Box sx={{ padding: "10px", textAlign: "center" }}>
@@ -37,14 +58,14 @@ export const GenerateForm = () => {
               variant="standard"
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={age}
+              value={document}
               label="Documento"
               fullWidth
               onChange={handleChange}
             >
-              <MenuItem value={10}>Estado academico</MenuItem>
-              <MenuItem value={20}>Certificado de alumno regular</MenuItem>
-              <MenuItem value={30}>Otro</MenuItem>
+              <MenuItem value={"ConstanciaAlumnoRegular"}>Certificado de alumno regular</MenuItem>
+              <MenuItem value={"CertificadoAnalitico"}>Certificado Analitico</MenuItem>
+              <MenuItem value={""}>Otro</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -54,6 +75,9 @@ export const GenerateForm = () => {
             type="number"
             variant="filled"
             fullWidth
+            value={legajo}
+            onChange={(e) => setLegajo(e.target.value)}
+
           ></TextField>
         </Grid>
         <Grid item xs={12}>
@@ -62,6 +86,8 @@ export const GenerateForm = () => {
             type="password"
             variant="filled"
             fullWidth
+            value={sysacadPass}
+            onChange={(e) => setSysacadPass(e.target.value)}
           ></TextField>
         </Grid>
 
@@ -72,6 +98,7 @@ export const GenerateForm = () => {
             size="large"
             fullWidth
             sx={{ mt: 2 }}
+            onClick={handleSubmit}
           >
             Generar documento
           </Button>

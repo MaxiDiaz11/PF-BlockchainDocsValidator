@@ -1,26 +1,22 @@
 "use client";
 import React, { useContext, useState } from "react";
 import { UiContext } from "@/app/context";
-import { Button, Input, TextField, Typography } from "@mui/material";
+import { Button, Input, Typography } from "@mui/material";
+import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
 
 export const ModalReqDocContent = () => {
   const { closeModal } = useContext(UiContext);
-  const [formData, setFormData] = useState({
-    formName: "",
-    file: null,
-  });
-
-  const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [file, setFile] = useState<File>();
+  const { uploadDocument } = useSpecialDocs();
 
   const handleFileChange = (event: any) => {
-    setFormData({ ...formData, file: event.target.files[0] });
+    setFile(event.target.files[0]);
   };
 
   const handleSubmit = () => {
-    console.log("Form Data:", formData);
+    console.log("Form Data:", file);
+    if(file)
+      uploadDocument(file)
     closeModal();
   };
 
@@ -29,22 +25,15 @@ export const ModalReqDocContent = () => {
       <Typography variant="h6" mb={2} sx={{ textAlign: "center" }}>
         Formulario de solicitud
       </Typography>
-      <TextField
-        fullWidth
-        label="Tipo de documento"
-        name="formName"
-        value={formData.formName}
-        onChange={handleInputChange}
-        sx={{ mb: 2 }}
-      />
-
       <Input
         type="file"
         name="file"
+        inputProps={{
+          inputProps: { accept: 'application/pdf' }
+        }}
         onChange={handleFileChange}
         sx={{ mb: 2 }}
       />
-
       <Button
         color="secondary"
         className="circular-btn"

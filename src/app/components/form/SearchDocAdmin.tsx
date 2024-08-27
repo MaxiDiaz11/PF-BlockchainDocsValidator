@@ -1,16 +1,104 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
-  Alert,
   Box,
   Button,
-  Fab,
   Grid,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
-import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
+import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
+import {
+  ListItem,
+  ListItemText,
+} from "../../../../node_modules/@mui/material/index";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
+import { useRouter } from "../../../../node_modules/next/navigation";
+import { getDate, getNombreDoc } from "../../util/utils";
 
 export const SearchDocAdmin = () => {
+  const [legajo, setLegajo] = useState("");
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState(0);
+  const { filterSpecialDoc } = useSpecialDocs();
+  const [specialDocuments, setSpecialDocuments] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    try {
+      filterSpecialDoc(status, name, legajo).then((data) => {
+        setSpecialDocuments(data);
+      });
+    } catch (error) {
+      console.error("Error getting files", error);
+    }
+  }, []);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setStatus(Number(event.target.value));
+  };
+
+  const searchDocs = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    try {
+      const data = await filterSpecialDoc(status, name, legajo);
+    } catch (error) {
+      console.error("Error getting files", error);
+    }
+  };
+
+  const goToEvaluarDocument = (hash: string) => {
+    router.push(`/dashboard/admin/aprobar-doc/${hash}`);
+  };
+
+  const renderSpecialDocumentRow = (props: ListChildComponentProps) => {
+    const { index, style } = props;
+    const document: any = specialDocuments[index];
+
+    let backgroundColor;
+    switch (document.status) {
+      case "Pendiente":
+        backgroundColor = "yellow";
+        break;
+      case "Aprobado":
+        backgroundColor = "green";
+        break;
+      case "Rechazado":
+        backgroundColor = "red";
+        break;
+      default:
+        backgroundColor = "yellow";
+    }
+
+    return (
+      <ListItem
+        key={index}
+        component="div"
+        style={style}
+        secondaryAction={
+          <Button
+            color="secondary"
+            className="circular-btn"
+            onClick={() => goToEvaluarDocument(document.id)}
+          >
+            Evaluar
+          </Button>
+        }
+      >
+        <ListItemText primary={getNombreDoc(document.name)} />
+        <ListItemText
+          primary={getDate(document.uploadDate)}
+          sx={{
+            display: { xs: "none", sm: "block" },
+          }}
+        />
+      </ListItem>
+    );
+  };
+
   return (
     <>
       <Box sx={{ padding: "10px", textAlign: "center" }}>
@@ -20,45 +108,62 @@ export const SearchDocAdmin = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              label="Nombre | Legajo | Estado"
+              label="Legajo"
               type="text"
               variant="filled"
               fullWidth
+              onChange={(evt) => setLegajo(evt.target.value)}
             ></TextField>
           </Grid>
 
           <Grid item xs={12}>
-            <Button
-              color="secondary"
-              className="circular-btn"
-              size="large"
+            <TextField
+              label="Nombre"
+              type="text"
+              variant="filled"
               fullWidth
-              sx={{ mt: 2 }}
+              onChange={(evt) => setName(evt.target.value)}
+            ></TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <Select
+              variant="filled"
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              label="Documento"
+              fullWidth
+              onChange={handleChange}
             >
-              Buscar documento
-            </Button>
+              <MenuItem value={0}>Pendiente</MenuItem>
+              <MenuItem value={1}>Aprobado</MenuItem>
+              <MenuItem value={2}>Rechazado</MenuItem>
+            </Select>
           </Grid>
         </Grid>
-      </Box>
 
-      {/* TODO: SI se encuentra documento mostrar lo de abajo */}
-      <Grid item xs={12} sx={{ marginTop: 4 }}>
-        {/* TODO: if hay documento mostrar lo de abajo, sino mensaje de error */}
-        <Typography variant="h6" sx={{ marginTop: 3 }}>
-          Documento a descargar:
-        </Typography>
-        <Grid sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Typography variant="body1" sx={{ marginTop: 3 }}>
-            Certificado de ALUMNO REGULAR{" "}
-          </Typography>
-          <Fab className="circular-btn">
-            <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
-          </Fab>
+        <Grid item xs={12}>
+          <Button
+            color="secondary"
+            className="circular-btn"
+            size="large"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={(e) => searchDocs(e)}
+          >
+            Buscar documento
+          </Button>
         </Grid>
-
-        <Alert variant="outlined" severity="error" sx={{ marginTop: 2 }}>
-          No encontramos el documento solicitado
-        </Alert>
+      </Box>
+      <Grid item xs={12}>
+        <FixedSizeList
+          height={200}
+          width="100%"
+          itemSize={50}
+          itemCount={specialDocuments?.length}
+          overscanCount={10}
+        >
+          {renderSpecialDocumentRow}
+        </FixedSizeList>
       </Grid>
     </>
   );
