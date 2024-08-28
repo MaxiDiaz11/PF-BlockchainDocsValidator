@@ -3,6 +3,9 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Chip } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { getDate } from "../../util/utils";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import DangerousIcon from '@mui/icons-material/Dangerous';
+import TimerIcon from '@mui/icons-material/Timer';
 
 interface DocListTableProps {
   rows: Array<any>;
@@ -23,6 +26,20 @@ const getStatusColor = (status: string): ChipColor => {
   }
 };
 
+const getStatusIcon = (status: string) => {
+  switch (status) {
+    case "Pendiente":
+      return <TimerIcon />;
+    case "Aprobado":
+      return <CheckCircleOutlineIcon />;
+    case "Rechazado":
+      return <DangerousIcon />;
+    default:
+      return <TimerIcon />;
+  }
+};
+
+
 export default function DocListAdminTable({ rows }: DocListTableProps) {
   const router = useRouter();
 
@@ -37,9 +54,18 @@ export default function DocListAdminTable({ rows }: DocListTableProps) {
       field: 'estado',
       headerName: 'Estado',
       width: 150,
-      renderCell: (params) => (
-        <Chip label={params.value} color={getStatusColor(params.value as string)} />
-      ),
+      renderCell: (params) => {
+        const statusIcon = getStatusIcon(params.formattedValue);
+        return (
+          <>
+        <Chip 
+        label={params.formattedValue} 
+        color={getStatusColor(params.formattedValue)} 
+        icon={statusIcon}
+        sx={{ ml: 1 }} // Add margin-left to space out the icon and text
+          />
+      </>)
+      },
     },
     {
       field: 'action',

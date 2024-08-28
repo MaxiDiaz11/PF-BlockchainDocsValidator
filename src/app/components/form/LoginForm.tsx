@@ -1,9 +1,9 @@
 "use client";
 import { FC, useState } from "react";
-import { Button, Grid, Link, TextField, Typography, FormHelperText } from "@mui/material";
-import NextLink from "next/link";
+import { Button, Grid, Box, TextField, Typography, FormHelperText } from "@mui/material";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const LoginForm: FC = () => {
   const { login } = useAuth();
@@ -56,9 +56,23 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, background: '#333', padding: 2, borderRadius: 4 }}>
+      <Image
+        src={"/img/BlockSolutions.png"}
+        alt="BlockSolutions"
+        sizes="100vw"
+        width={400}
+        height={400}
+        priority
+        style={{
+          borderRadius: "50%",
+          maxWidth: "100%",
+          height: "auto",
+          boxShadow: "0px 15px 15px rgba(0, 0, 0, 0.3)",
+        }}
+      />
       <Grid item xs={12}>
-        <Typography variant="h1" component={"h1"} textAlign={"center"}>
+        <Typography variant="h1" component={"h1"} textAlign={"center"} color={"#fff"}>
           Iniciar sesión
         </Typography>
       </Grid>
@@ -69,10 +83,11 @@ const LoginForm: FC = () => {
           variant="filled"
           fullWidth
           value={email}
+          sx={{ color: "#fff", background: "#fff", borderRadius: 4}}
           onChange={(e) => setEmail(e.target.value)}
           error={!!emailError}
           helperText={emailError}
-        />
+        ></TextField>
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -81,15 +96,15 @@ const LoginForm: FC = () => {
           variant="filled"
           fullWidth
           value={password}
+          sx={{ color: "#fff", background: "#fff", borderRadius: 4}}
           onChange={(e) => setPassword(e.target.value)}
           error={!!passwordError}
           helperText={passwordError}
-        />
+        ></TextField>
       </Grid>
       <Grid item xs={12}>
         <Button
           color="secondary"
-          className="circular-btn"
           size="large"
           fullWidth
           type="submit"
@@ -98,7 +113,7 @@ const LoginForm: FC = () => {
           Ingresar
         </Button>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 

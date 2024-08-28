@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { GenerateForm } from "@/app/components/form";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 
+
 export const metadata: Metadata = {
   title: "BS | Generar documentos",
   description: "Generar documentos",

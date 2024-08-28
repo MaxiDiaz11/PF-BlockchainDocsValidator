@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import { UiContext } from "@/app/context";
 import { useDocs } from "@/app/hooks/useDocs";
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 export const GenerateForm = () => {
   const { toggleModal } = useContext(UiContext);
@@ -149,6 +151,7 @@ export const GenerateForm = () => {
             sx={{ mt: 2 }}
             onClick={handleSubmit}
           >
+            <DocumentScannerIcon sx={{marginRight:1}}/>
             Generar documento
           </Button>
         </Grid>
@@ -161,6 +164,7 @@ export const GenerateForm = () => {
             fullWidth
             onClick={() => toggleModal("requestDoc")}
           >
+            <FilePresentIcon sx={{marginRight:1}}/>
             Solicitar documento especial
           </Button>
         </Grid>

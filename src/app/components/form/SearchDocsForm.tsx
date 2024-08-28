@@ -12,7 +12,7 @@ import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflin
 import { useDocs } from "@/app/hooks/useDocs";
 import { IconButton } from "../../../../node_modules/@mui/material/index";
 import { getDate } from "@/app/util/utils";
-
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 interface Props {
   documentName?: string;
   documentStatus?: string;
@@ -88,6 +88,7 @@ export const SearchDocsForm: FC = () => {
               sx={{ mt: 2 }}
               onClick={handleSubmit}
             >
+              <ContentPasteSearchIcon sx={{marginRight: 1}}/>
               Buscar documento
             </Button>
           </Grid>
