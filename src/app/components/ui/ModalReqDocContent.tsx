@@ -35,7 +35,7 @@ export const ModalReqDocContent = () => {
     uploadDocument(file)
       .then( _ => toast.success(`Solicitud de documentacion creada con exito`))
       .catch(_ => toast.error(`Hubo un error subiendo su documento, intente mas tarde`))
-      .finally(_ => closeModal())
+      .finally(() => closeModal())
     
   };
 

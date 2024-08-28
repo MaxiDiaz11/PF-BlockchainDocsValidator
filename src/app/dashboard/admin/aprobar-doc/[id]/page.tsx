@@ -4,6 +4,7 @@ import { DocsLayout, PageLayout } from "@/app/components/layouts";
 import { Box, Grid, Typography } from "@mui/material";
 import { AproveDocAdmin } from "@/app/components/form";
 import AssignmentTurnedInRoundedIcon from "@mui/icons-material/AssignmentTurnedInRounded";
+import CheckRoute from "@/app/components/ui/CheckRoute";
 
 
 export const metadata: Metadata = {
@@ -51,6 +52,7 @@ const AproveDocPage = () => {
             />
           </Box>
         </Grid>
+        <CheckRoute/>
       </PageLayout>
     </DocsLayout>
   );

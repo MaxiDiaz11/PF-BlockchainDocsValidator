@@ -3,6 +3,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { Metadata } from "next";
 import { DocsList } from "@/app/components/ui";
 import FolderCopyRoundedIcon from "@mui/icons-material/FolderCopyRounded";
+import CheckRoute from "@/app/components/ui/CheckRoute";
 
 export const metadata: Metadata = {
   title: "BS | Listar documentos",
@@ -42,6 +43,7 @@ const ListDocsPage = () => {
           </Box>
         </Grid>
       </PageLayout>
+      <CheckRoute/>
     </DocsLayout>
   );
 };

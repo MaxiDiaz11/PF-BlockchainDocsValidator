@@ -4,6 +4,7 @@ import { SearchDocAdmin } from "@/app/components/form";
 import { DocsLayout, PageLayout } from "@/app/components/layouts";
 import { Box, Grid, Typography } from "@mui/material";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import CheckRoute from "@/app/components/ui/CheckRoute";
 
 export const metadata: Metadata = {
   title: "BS | Buscar documentos",
@@ -46,6 +47,8 @@ const SearchDocPage = () => {
             <SearchRoundedIcon sx={{ fontSize: 150, color: "dark" }} />
           </Box>
         </Grid>
+        <CheckRoute/>
+
       </PageLayout>
     </DocsLayout>
   );

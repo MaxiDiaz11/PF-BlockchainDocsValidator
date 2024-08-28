@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { Metadata } from "next";
 import BlurOnIcon from "@mui/icons-material/BlurOn";
+import CheckRoute from "@/app/components/ui/CheckRoute";
 
 export const metadata: Metadata = {
   title: "Block Solutions | Validador de documentos",
@@ -10,6 +11,9 @@ export const metadata: Metadata = {
 };
 
 const MainPage = () => {
+
+
+
   return (
     <DocsLayout
       title="Block Solutions"
@@ -114,6 +118,7 @@ const MainPage = () => {
           <BlurOnIcon sx={{ position: 'absolute', left: 0, bottom: 0, height: 80, width: 80}}/>
         </Box>
       </Box>
+      <CheckRoute/>
     </DocsLayout>
   );
 };

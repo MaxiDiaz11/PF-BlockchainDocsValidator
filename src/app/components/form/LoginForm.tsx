@@ -42,7 +42,7 @@ const LoginForm: FC = () => {
     try {
       const data = await login(email, password, role);
       console.log("Login successful:", data);
-      storeToken(data.accessToken);
+      storeToken(data.accessToken,data.isAdmin);
       router.push("/dashboard/main");
     } catch (err) {
       console.error("Login failed:", err);
@@ -50,8 +50,9 @@ const LoginForm: FC = () => {
     }
   };
 
-  const storeToken = (token: string) => {
+  const storeToken = (token: string, isAdmin: boolean) => {
     sessionStorage.setItem("authToken", token);
+    sessionStorage.setItem("isAdmin", isAdmin.toString());
     console.log("Token Stored");
   };
 
