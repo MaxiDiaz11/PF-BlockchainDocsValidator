@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Box,
   Divider,
@@ -24,7 +24,13 @@ import { Build, FormatListNumbered, VerifiedUser } from "@mui/icons-material";
 export const SideMenu = () => {
   const { toggleSideMenu, isMenuOpen } = useContext(UiContext);
 
-  const isAdmin = sessionStorage.getItem("isAdmin");
+  const [isAdmin,setIsAdmin] = useState("");
+
+  useEffect(()=> {
+    const session = sessionStorage.getItem("isAdmin");
+    if (session)
+      setIsAdmin(session);
+  },[])
 
   return (
     <Drawer
