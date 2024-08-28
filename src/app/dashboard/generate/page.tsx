@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { GenerateForm } from "@/app/components/form";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 
+
 export const metadata: Metadata = {
   title: "BS | Generar documentos",
   description: "Generar documentos",
@@ -13,14 +14,14 @@ const GenDocsPage = () => {
   return (
     <DocsLayout title="Generar documentos" pageDescription="Generar documentos">
       <PageLayout title="Generación de documentos">
-        <Grid item xs={12} md={7} mt={4}>
+        <Grid item xs={12} md={9} mt={4}>
           <GenerateForm />
         </Grid>
 
         <Grid
           item
           xs={12}
-          md={5}
+          md={3}
           mt={4}
           display={"flex"}
           justifyContent={"center"}

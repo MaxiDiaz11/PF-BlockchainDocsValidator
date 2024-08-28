@@ -24,6 +24,8 @@ import {
 } from "@mui/icons-material";
 import { UiContext } from "@/app/context";
 import Link from "next/link";
+import CloseIcon from '@mui/icons-material/Close';
+import { Build, FormatListNumbered, VerifiedUser } from "@mui/icons-material";
 
 export const SideMenu = () => {
   const { toggleSideMenu, isMenuOpen } = useContext(UiContext);
@@ -37,6 +39,35 @@ export const SideMenu = () => {
     >
       <Box sx={{ width: 250, paddingTop: 5 }}>
         <List>
+          {/* Alumno */}
+          <Divider />
+          <ListSubheader>Panel de Alumno</ListSubheader>
+          <Link href={"/dashboard/generate"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <Build />
+              </ListItemIcon>
+              <ListItemText primary={"Generar"} />
+            </ListItem>
+          </Link>
+          <Link href={"/dashboard/validate"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <VerifiedUser />
+              </ListItemIcon>
+              <ListItemText primary={"Validar"} />
+            </ListItem>
+          </Link>
+          <Link href={"/dashboard/list"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <FormatListNumbered />
+              </ListItemIcon>
+              <ListItemText primary={"Listar"} />
+            </ListItem>
+          </Link>
+          <Divider />
+
           {/* Admin */}
           <Divider />
           <ListSubheader>Panel de administrador</ListSubheader>
@@ -54,6 +85,21 @@ export const SideMenu = () => {
                 <InsertChartOutlined />
               </ListItemIcon>
               <ListItemText primary={"Obtener estadísticas"} />
+            </ListItem>
+          </Link>
+          <Divider />
+
+          {/*Sesion*/}
+          <ListSubheader>Sesión</ListSubheader>
+          <Link href={"/dashboard/main"} passHref legacyBehavior>
+            <ListItem button onClick={() => {
+              toggleSideMenu()
+              sessionStorage.clear();
+            }}>
+              <ListItemIcon>
+                <CloseIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Cerrar Sesión"} />
             </ListItem>
           </Link>
         </List>

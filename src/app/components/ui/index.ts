@@ -1,4 +1,3 @@
-export * from "./DocListTable";
 export * from "./ContentDocsLayout";
 export * from "./DocsList";
 export * from "./Footer";

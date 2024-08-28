@@ -13,14 +13,14 @@ const ListDocsPage = () => {
   return (
     <DocsLayout title="Listar documentos" pageDescription="Listar documentos">
       <PageLayout title="Listado de documentos">
-        <Grid item xs={12} md={7} mt={4}>
+        <Grid item xs={12} md={9} mt={4}>
           <DocsList />
         </Grid>
 
         <Grid
           item
           xs={12}
-          md={5}
+          md={3}
           mt={4}
           display={"flex"}
           justifyContent={"center"}

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { UiContext } from "@/app/context";
 import BlurOnIcon from "@mui/icons-material/BlurOn";
 import NextLink from "next/link";
+import { Build, FormatListNumbered, VerifiedUser } from "@mui/icons-material";
 
 export const NavBar = () => {
   const { toggleSideMenu } = useContext(UiContext);
@@ -12,47 +13,57 @@ export const NavBar = () => {
 
   return (
     <AppBar>
-      <Toolbar>
-        <NextLink href="/" passHref legacyBehavior>
-          <Link display="flex" alignItems="center">
-            <Typography variant="h6">Block | Solutions</Typography>{" "}
-            <BlurOnIcon />
-          </Link>
-        </NextLink>
-
-        <Box flex={1}></Box>
-
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <NextLink href="/dashboard/generate" legacyBehavior>
-            <Link>
-              <Button
-                color={page === "/dashboard/generate" ? "primary" : "info"}
-              >
-                Generar
-              </Button>
-            </Link>
-          </NextLink>
-          <NextLink href="/dashboard/validate" legacyBehavior>
-            <Link>
-              <Button
-                color={page === "/dashboard/validate" ? "primary" : "info"}
-              >
-                Validar
-              </Button>
-            </Link>
-          </NextLink>
-          <NextLink href="/dashboard/list" legacyBehavior>
-            <Link>
-              <Button color={page === "/dashboard/list" ? "primary" : "info"}>
-                Listar
-              </Button>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: '200px' }}>
+          <NextLink href="/" passHref legacyBehavior>
+            <Link display="flex" alignItems="center">
+              <Typography variant="h6">Block | Solutions</Typography>
+              <BlurOnIcon />
             </Link>
           </NextLink>
         </Box>
 
-        <Box flex={1}></Box>
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <NextLink href="/dashboard/generate" legacyBehavior>
+              <Link>
+                <Button
+                  sx={{ fontSize: 16}}
+                  color={page === "/dashboard/generate" ? "primary" : "info"}
+                >
+              <Build sx={{ height: "15px", marginBottom: 2 }} />
+                  Generar
+                </Button>
+              </Link>
+            </NextLink>
+            <NextLink href="/dashboard/validate" legacyBehavior>
+              <Link>
+                <Button
+                  sx={{ fontSize: 16}}
+                  color={page === "/dashboard/validate" ? "primary" : "info"}
+                >
+                  <VerifiedUser sx={{ height: "15px", marginBottom: 2 }}/>
+                  Validar
+                </Button>
+              </Link>
+            </NextLink>
+            <NextLink href="/dashboard/list" legacyBehavior>
+              <Link>
+                <Button
+                  sx={{ fontSize: 16}}
+                  color={page === "/dashboard/list" ? "primary" : "info"}
+                >
+                  <FormatListNumbered sx={{ height: "15px", marginBottom: 2 }}/>
+                  Listar
+                </Button>
+              </Link>
+            </NextLink>
+          </Box>
+        </Box>
 
-        <Button onClick={toggleSideMenu}>Menú</Button>
+        <Box sx={{ width: '200px', textAlign: 'right' }}>
+          <Button sx={{ fontSize: 16}} onClick={toggleSideMenu}>Menú</Button>
+        </Box>
       </Toolbar>
     </AppBar>
   );

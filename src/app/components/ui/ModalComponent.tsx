@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { Modal, Box } from "@mui/material";
 import { UiContext } from "@/app/context";
 import { ModalReqDocContent } from "./ModalReqDocContent";
+import ModalSuccessRequestComponent from "./ModalSuccessRequestComponent";
 
 export const ModalComponent = () => {
   const { toggleModal, isModalOpen, modalOption } = useContext(UiContext);

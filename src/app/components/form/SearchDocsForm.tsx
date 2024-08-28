@@ -7,12 +7,12 @@ import {
   TextField,
   Typography,
   Chip,
-  Fab,
 } from "@mui/material";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 import { useDocs } from "@/app/hooks/useDocs";
 import { IconButton } from "../../../../node_modules/@mui/material/index";
-
+import { getDate } from "@/app/util/utils";
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 interface Props {
   documentName?: string;
   documentStatus?: string;
@@ -23,9 +23,24 @@ export const SearchDocsForm: FC = () => {
   const { validateDoc } = useDocs();
   const [fileFromBlockchain, setFileFromBlockchain] = useState<any>();
   const [fileFound, setFileFound] = useState(false);
+  const [hashError, setHashError] = useState(false);
+ 
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
+    setHashError(false);
+    let valid = true;
+
+    if (hash === "") {
+      setHashError(true);
+      valid = false;
+    }
+
+    if (!valid) {
+      return;
+    }
+
     try {
       const data = await validateDoc(hash);
       setFileFromBlockchain(data);
@@ -54,8 +69,14 @@ export const SearchDocsForm: FC = () => {
               variant="filled"
               fullWidth
               value={hash}
-              onChange={(e) => setHash(e.target.value)}
+              onChange={(e) => {
+                setHash(e.target.value)
+                setHashError(false);
+              }}
+              error={hashError}
+              helperText={hashError ? "Por favor, ingrese un hash." : ""}
             ></TextField>
+             
           </Grid>
 
           <Grid item xs={12}>
@@ -67,6 +88,7 @@ export const SearchDocsForm: FC = () => {
               sx={{ mt: 2 }}
               onClick={handleSubmit}
             >
+              <ContentPasteSearchIcon sx={{marginRight: 1}}/>
               Buscar documento
             </Button>
           </Grid>
@@ -77,10 +99,6 @@ export const SearchDocsForm: FC = () => {
         {fileFound && (
           <>
             <Typography variant="h6" sx={{ marginTop: 3 }}>
-              Tipo de certificado:
-            </Typography>
-
-            <Typography variant="body1" sx={{ marginTop: 3 }}>
               Estado:{" "}
               <Chip
                 label={
@@ -112,7 +130,7 @@ export const SearchDocsForm: FC = () => {
                 variant="body1"
                 sx={{ marginY: 2, fontWeight: "bold" }}
               >
-                {fileFromBlockchain?.uploadDate}
+                {getDate(fileFromBlockchain?.uploadDate)}
               </Typography>
               <IconButton
                 className="circular-btn"

@@ -36,7 +36,7 @@ export const AproveDocAdmin = () => {
         <Grid container spacing={2}>
           <Grid item sx={{width: "100%", height: "50vh"}}>
             <iframe
-              src={`${process.env.NEXT_PUBLIC_URL_API}/special-documents/id?${queryParams}`}
+              src={`${process.env.NEXT_PUBLIC_URL_API}/special-documents/${id}`}
               height="100%"
               width="100%"
             ></iframe>

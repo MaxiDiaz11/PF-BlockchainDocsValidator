@@ -1,3 +1,6 @@
+import Swal from 'sweetalert2'
+
+
 export const useAuth = () => {
     const login = async (email : string, password: string, role : Role) => {
         try {
@@ -23,15 +26,19 @@ export const useAuth = () => {
             const data = await response.json();
             return data;
           } catch (err) {
-            console.error(err);
-            throw err;
+            Swal.fire({
+              title: 'Error',
+              text: 'Los datos ingresados son incorrectos. Por favor, verifica tu usuario y contraseña e inténtalo de nuevo.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
           }
         };
 
 
-        return {
-            login,
-          };
+      return {
+        login
+      };
 
 
 }

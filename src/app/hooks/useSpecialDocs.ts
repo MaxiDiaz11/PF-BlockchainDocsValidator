@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export const useSpecialDocs = () => {
 
     const uploadDocument = async (file : File) => {
@@ -23,8 +25,12 @@ export const useSpecialDocs = () => {
             const data = await response.json();
             return data;
           } catch (err) {
-            console.error("Error uploading document:", err);
-            throw err;
+            Swal.fire({
+              title: 'Error!',
+              text: 'Ocurrió un error creando su solicitud. Por favor, intente más tarde.',
+              icon: 'error',
+              confirmButtonText: 'Continuar'
+            });
           }
     };
 
