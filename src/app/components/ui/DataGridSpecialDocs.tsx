@@ -46,6 +46,7 @@ const columns: GridColDef[] = [
     valueGetter: (params,row) => getDate(row.uploadDate),
   },
   {
+    field: '',
     headerName: 'Accion',
     width: 200,
     renderCell: (params) => 

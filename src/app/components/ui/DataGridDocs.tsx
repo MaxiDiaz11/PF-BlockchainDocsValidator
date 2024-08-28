@@ -28,7 +28,7 @@ const columns: GridColDef<RowData>[] = [
     headerName: 'Accion',
     width: 200,
     renderCell: (params) => (
-      params.hash !== '' ? (
+      params.row.hash !== '' ? (
         <Button
           variant="contained"
           onClick={() => navigator.clipboard.writeText(params.row.hash)}
@@ -41,8 +41,12 @@ const columns: GridColDef<RowData>[] = [
   }
 ];
 
+type DataGridDocsProps = {
+  rows: RowData[];
+};
 
-export default function DataGridDocs({rows}) {
+
+export default function DataGridDocs({ rows }: DataGridDocsProps) {
   return (
     <DataGrid
       rows={rows}
