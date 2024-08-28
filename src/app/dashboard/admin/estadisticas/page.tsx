@@ -4,6 +4,7 @@ import { DocsLayout, PageLayout } from "@/app/components/layouts";
 import { Box, Grid, Typography } from "@mui/material";
 import { StatisticsForm } from "@/app/components/form";
 import AssessmentRoundedIcon from "@mui/icons-material/AssessmentRounded";
+import CheckRoute from "@/app/components/ui/CheckRoute";
 
 export const metadata: Metadata = {
   title: "BS | Estadísticas",
@@ -45,6 +46,8 @@ const StatisticsPage = () => {
             <AssessmentRoundedIcon sx={{ fontSize: 150, color: "dark" }} />
           </Box>
         </Grid>
+        <CheckRoute/>
+
       </PageLayout>
     </DocsLayout>
   );

@@ -3,6 +3,7 @@ import { Grid, Box, Typography } from "@mui/material";
 import { Metadata } from "next";
 import { GenerateForm } from "@/app/components/form";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
+import CheckRoute from "@/app/components/ui/CheckRoute";
 
 
 export const metadata: Metadata = {
@@ -43,6 +44,7 @@ const GenDocsPage = () => {
             <UploadFileRoundedIcon sx={{ fontSize: 150, color: "dark" }} />
           </Box>
         </Grid>
+        <CheckRoute/>
       </PageLayout>
     </DocsLayout>
   );

@@ -4,6 +4,7 @@ import { UiContext } from "@/app/context";
 import { Box, Button, Typography } from "@mui/material";
 import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
 import Swal from 'sweetalert2';
+import { toast } from "sonner";
 
 export const ModalReqDocContent = () => {
   const { closeModal } = useContext(UiContext);
@@ -32,6 +33,9 @@ export const ModalReqDocContent = () => {
     }
 
     uploadDocument(file)
+      .then( _ => toast.success(`Solicitud de documentacion creada con exito`))
+      .catch(_ => toast.error(`Hubo un error subiendo su documento, intente mas tarde`))
+      .finally(() => closeModal())
     
   };
 

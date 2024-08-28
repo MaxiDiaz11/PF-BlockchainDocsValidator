@@ -11,13 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
-import {
-  ListItem,
-  ListItemText,
-} from "../../../../node_modules/@mui/material/index";
-import { FixedSizeList, ListChildComponentProps } from "react-window";
 import { useRouter } from "../../../../node_modules/next/navigation";
-import { getDate, getNombreDoc } from "../../util/utils";
 import DocListAdminTable from "../ui/DocListAdminTable";
 
 export const SearchDocAdmin = () => {
@@ -30,6 +24,7 @@ export const SearchDocAdmin = () => {
 
   useEffect(() => {
     try {
+      setSpecialDocuments([])
       filterSpecialDoc(status, name, legajo).then((data) => {
         setSpecialDocuments(data);
       });

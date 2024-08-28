@@ -1,15 +1,18 @@
 "use client"
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSpecialDocs } from "@/app/hooks/useSpecialDocs";
 import { Button, ButtonGroup } from "../../../../node_modules/@mui/material/index";
+import { toast } from 'sonner'
 
 
 export const AproveDocAdmin = () => {
 
   const pathname: string = usePathname()
   const id = pathname.at(-1) ?? 0;
+  const router = useRouter();
+
 
   const {updateStatus} = useSpecialDocs()
 
@@ -20,12 +23,23 @@ export const AproveDocAdmin = () => {
 
   const onAprobarDoc = (evt :React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    updateStatus(1,Number(id));
+    updateStatus(1,Number(id)).then(_ => {
+      toast.success('El documento se Aprobo con exito',{
+        duration: 3000,
+        onDismiss: (t) => router.push('/dashboard/admin/buscar-doc'),
+         onAutoClose: (t) => router.push('/dashboard/admin/buscar-doc'),
+      })
+    })
   }
 
   const onRechazarDoc = (evt:React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    updateStatus(2,Number(id));
+    updateStatus(2,Number(id)).then(_ => toast.error('El documento fue Rechazado',{
+      duration: 3000,
+      onDismiss: (t) => router.push('/dashboard/admin/buscar-doc'),
+       onAutoClose: (t) => router.push('/dashboard/admin/buscar-doc'),
+    }));
+    
   }
   return (
     <>
