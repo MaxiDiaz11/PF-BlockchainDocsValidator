@@ -24,7 +24,6 @@ export const ModalComponent = () => {
       <Modal open={isModalOpen} onClose={toggleModal}>
         <Box sx={style}>
           {modalOption === "requestDoc" ? <ModalReqDocContent /> : <Box></Box>}
-          {modalOption === "requestSuccess" ? <ModalSuccessRequestComponent /> : <Box></Box>}
         </Box>
       </Modal>
     </div>
