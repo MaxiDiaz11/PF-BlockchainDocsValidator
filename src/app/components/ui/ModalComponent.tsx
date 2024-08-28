@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { Modal, Box } from "@mui/material";
 import { UiContext } from "@/app/context";
 import { ModalReqDocContent } from "./ModalReqDocContent";
+import ModalSuccessRequestComponent from "./ModalSuccessRequestComponent";
 
 export const ModalComponent = () => {
   const { toggleModal, isModalOpen, modalOption } = useContext(UiContext);
@@ -23,6 +24,7 @@ export const ModalComponent = () => {
       <Modal open={isModalOpen} onClose={toggleModal}>
         <Box sx={style}>
           {modalOption === "requestDoc" ? <ModalReqDocContent /> : <Box></Box>}
+          {modalOption === "requestSuccess" ? <ModalSuccessRequestComponent /> : <Box></Box>}
         </Box>
       </Modal>
     </div>

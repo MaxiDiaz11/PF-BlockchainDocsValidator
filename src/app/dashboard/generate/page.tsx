@@ -13,14 +13,14 @@ const GenDocsPage = () => {
   return (
     <DocsLayout title="Generar documentos" pageDescription="Generar documentos">
       <PageLayout title="Generación de documentos">
-        <Grid item xs={12} md={7} mt={4}>
+        <Grid item xs={12} md={9} mt={4}>
           <GenerateForm />
         </Grid>
 
         <Grid
           item
           xs={12}
-          md={5}
+          md={3}
           mt={4}
           display={"flex"}
           justifyContent={"center"}

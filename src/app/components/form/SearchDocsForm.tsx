@@ -12,6 +12,7 @@ import {
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 import { useDocs } from "@/app/hooks/useDocs";
 import { IconButton } from "../../../../node_modules/@mui/material/index";
+import { getDate } from "@/app/util/utils";
 
 interface Props {
   documentName?: string;
@@ -77,10 +78,6 @@ export const SearchDocsForm: FC = () => {
         {fileFound && (
           <>
             <Typography variant="h6" sx={{ marginTop: 3 }}>
-              Tipo de certificado:
-            </Typography>
-
-            <Typography variant="body1" sx={{ marginTop: 3 }}>
               Estado:{" "}
               <Chip
                 label={
@@ -112,7 +109,7 @@ export const SearchDocsForm: FC = () => {
                 variant="body1"
                 sx={{ marginY: 2, fontWeight: "bold" }}
               >
-                {fileFromBlockchain?.uploadDate}
+                {getDate(fileFromBlockchain?.uploadDate)}
               </Typography>
               <IconButton
                 className="circular-btn"

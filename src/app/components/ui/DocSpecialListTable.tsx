@@ -8,9 +8,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Button,
+  Typography
 } from "@mui/material";
 import { getDate } from "@/app/util/utils";
 import { getNombreDoc } from "../../util/utils";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 interface DocListTableProps {
   rows: Array<any>;
@@ -39,6 +42,13 @@ const DocSpecialListTable: React.FC<DocListTableProps> = ({ rows }) => {
 };
 
 
+
+const copyHash = (hash : string) => {
+  navigator.clipboard.writeText(hash)
+}
+
+
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -48,13 +58,13 @@ const DocSpecialListTable: React.FC<DocListTableProps> = ({ rows }) => {
               <b>Name</b>{" "}
             </TableCell>
             <TableCell align="center">
-              <b>Hash</b>
-            </TableCell>
-            <TableCell align="center">
               <b>Estado</b>
             </TableCell>
             <TableCell align="center">
               <b>Fecha</b>
+            </TableCell>
+            <TableCell align="center">
+              <b>Accion</b>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -67,11 +77,24 @@ const DocSpecialListTable: React.FC<DocListTableProps> = ({ rows }) => {
               <TableCell component="th" scope="row" align="center">
                 {getNombreDoc(row.name)}
               </TableCell>
-              <TableCell align="center">{row.hash}</TableCell>
               <TableCell align="center">
                 <Chip label={row.status} color={getStatusColor(row.status)} />
               </TableCell>
               <TableCell align="center">{getDate(row.uploadDate)}</TableCell>
+              <TableCell align="center">
+              {
+                  row.hash ?
+                  <Button
+                  variant="contained"
+                  onClick={() => copyHash(row.hash)}>
+                    <ContentCopyIcon/>
+                    <Typography sx={{mx:2}}>
+                          Get Hash
+                    </Typography>
+                </Button>
+                : <></>
+                }
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

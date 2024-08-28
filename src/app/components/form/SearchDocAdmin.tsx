@@ -18,6 +18,7 @@ import {
 import { FixedSizeList, ListChildComponentProps } from "react-window";
 import { useRouter } from "../../../../node_modules/next/navigation";
 import { getDate, getNombreDoc } from "../../util/utils";
+import DocListAdminTable from "../ui/DocListAdminTable";
 
 export const SearchDocAdmin = () => {
   const [legajo, setLegajo] = useState("");
@@ -44,59 +45,12 @@ export const SearchDocAdmin = () => {
   const searchDocs = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
-      const data = await filterSpecialDoc(status, name, legajo);
+      const data = await filterSpecialDoc(status, name, legajo).then((data) => {
+        setSpecialDocuments(data);
+      });
     } catch (error) {
       console.error("Error getting files", error);
     }
-  };
-
-  const goToEvaluarDocument = (hash: string) => {
-    router.push(`/dashboard/admin/aprobar-doc/${hash}`);
-  };
-
-  const renderSpecialDocumentRow = (props: ListChildComponentProps) => {
-    const { index, style } = props;
-    const document: any = specialDocuments[index];
-
-    let backgroundColor;
-    switch (document.status) {
-      case "Pendiente":
-        backgroundColor = "yellow";
-        break;
-      case "Aprobado":
-        backgroundColor = "green";
-        break;
-      case "Rechazado":
-        backgroundColor = "red";
-        break;
-      default:
-        backgroundColor = "yellow";
-    }
-
-    return (
-      <ListItem
-        key={index}
-        component="div"
-        style={style}
-        secondaryAction={
-          <Button
-            color="secondary"
-            className="circular-btn"
-            onClick={() => goToEvaluarDocument(document.id)}
-          >
-            Evaluar
-          </Button>
-        }
-      >
-        <ListItemText primary={getNombreDoc(document.name)} />
-        <ListItemText
-          primary={getDate(document.uploadDate)}
-          sx={{
-            display: { xs: "none", sm: "block" },
-          }}
-        />
-      </ListItem>
-    );
   };
 
   return (
@@ -155,15 +109,7 @@ export const SearchDocAdmin = () => {
         </Grid>
       </Box>
       <Grid item xs={12}>
-        <FixedSizeList
-          height={200}
-          width="100%"
-          itemSize={50}
-          itemCount={specialDocuments?.length}
-          overscanCount={10}
-        >
-          {renderSpecialDocumentRow}
-        </FixedSizeList>
+        <DocListAdminTable rows={specialDocuments}/>
       </Grid>
     </>
   );
