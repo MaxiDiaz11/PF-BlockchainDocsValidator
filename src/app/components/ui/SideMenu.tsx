@@ -24,6 +24,7 @@ import {
 } from "@mui/icons-material";
 import { UiContext } from "@/app/context";
 import Link from "next/link";
+import CloseIcon from '@mui/icons-material/Close';
 
 export const SideMenu = () => {
   const { toggleSideMenu, isMenuOpen } = useContext(UiContext);
@@ -54,6 +55,16 @@ export const SideMenu = () => {
                 <InsertChartOutlined />
               </ListItemIcon>
               <ListItemText primary={"Obtener estadísticas"} />
+            </ListItem>
+          </Link>
+          <Divider />
+          <ListSubheader>Sesión</ListSubheader>
+          <Link href={"/dashboard/main"} passHref legacyBehavior>
+            <ListItem button onClick={() => toggleSideMenu()}>
+              <ListItemIcon>
+                <CloseIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Cerrar Sesión"} />
             </ListItem>
           </Link>
         </List>
