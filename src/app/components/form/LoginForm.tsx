@@ -1,6 +1,6 @@
 "use client";
 import { FC, useState } from "react";
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Button, Grid, Link, TextField, Typography, FormHelperText } from "@mui/material";
 import NextLink from "next/link";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
@@ -9,11 +9,36 @@ const LoginForm: FC = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [role] = useState(1);
   const router = useRouter();
 
+  const validateEmail = (email: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    let valid = true;
+
+    // Reset errors
+    setEmailError("");
+    setPasswordError("");
+
+    if (!validateEmail(email)) {
+      setEmailError("Email inválido");
+      valid = false;
+    }
+
+    if (password.trim() === "") {
+      setPasswordError("La contraseña no puede estar vacía");
+      valid = false;
+    }
+
+    if (!valid) return;
+
     try {
       const data = await login(email, password, role);
       console.log("Login successful:", data);
@@ -21,6 +46,7 @@ const LoginForm: FC = () => {
       router.push("/dashboard/list");
     } catch (err) {
       console.error("Login failed:", err);
+      // Handle login error
     }
   };
 
@@ -44,7 +70,9 @@ const LoginForm: FC = () => {
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        ></TextField>
+          error={!!emailError}
+          helperText={emailError}
+        />
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -54,7 +82,9 @@ const LoginForm: FC = () => {
           fullWidth
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        ></TextField>
+          error={!!passwordError}
+          helperText={passwordError}
+        />
       </Grid>
       <Grid item xs={12}>
         <Button
