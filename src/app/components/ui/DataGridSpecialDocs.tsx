@@ -44,7 +44,7 @@ const getStatusIcon = (status: string) => {
 };
 
 const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 300, valueGetter: (params,row) => getNombreDoc(row.name) },
+  { field: 'name', headerName: 'Nombre', width: 300, valueGetter: (params,row) => getNombreDoc(row.name) },
   {
     field: 'status',
     headerName: 'Estado',
@@ -73,7 +73,7 @@ const columns: GridColDef[] = [
   {
     field: 'action',
     headerName: 'Accion',
-    width: 200,
+    width: 150,
     renderCell: (params) => (
       params.row.hash !== '' ? (
         <Button
