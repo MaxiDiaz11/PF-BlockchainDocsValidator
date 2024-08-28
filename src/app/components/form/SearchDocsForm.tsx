@@ -7,7 +7,6 @@ import {
   TextField,
   Typography,
   Chip,
-  Fab,
 } from "@mui/material";
 import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
 import { useDocs } from "@/app/hooks/useDocs";
@@ -24,9 +23,24 @@ export const SearchDocsForm: FC = () => {
   const { validateDoc } = useDocs();
   const [fileFromBlockchain, setFileFromBlockchain] = useState<any>();
   const [fileFound, setFileFound] = useState(false);
+  const [hashError, setHashError] = useState(false);
+ 
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
+    setHashError(false);
+    let valid = true;
+
+    if (hash === "") {
+      setHashError(true);
+      valid = false;
+    }
+
+    if (!valid) {
+      return;
+    }
+
     try {
       const data = await validateDoc(hash);
       setFileFromBlockchain(data);
@@ -55,8 +69,14 @@ export const SearchDocsForm: FC = () => {
               variant="filled"
               fullWidth
               value={hash}
-              onChange={(e) => setHash(e.target.value)}
+              onChange={(e) => {
+                setHash(e.target.value)
+                setHashError(false);
+              }}
+              error={hashError}
+              helperText={hashError ? "Por favor, ingrese un hash." : ""}
             ></TextField>
+             
           </Grid>
 
           <Grid item xs={12}>
