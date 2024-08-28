@@ -98,11 +98,6 @@ const LoginForm: FC = () => {
           Ingresar
         </Button>
       </Grid>
-      <Grid item xs={12} display={"flex"} justifyContent={"center"}>
-        <NextLink href={"/auth/register"} legacyBehavior passHref>
-          <Link underline="always">¿No tienes cuenta?</Link>
-        </NextLink>
-      </Grid>
     </Grid>
   );
 };
