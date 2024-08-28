@@ -1,4 +1,4 @@
-import Swal from "sweetalert2";
+
 
 export const useSpecialDocs = () => {
 
@@ -22,15 +22,10 @@ export const useSpecialDocs = () => {
               throw new Error("Failed to upload document");
             }
         
-            const data = await response.json();
-            return data;
+            
+            return response.ok;
           } catch (err) {
-            Swal.fire({
-              title: 'Error!',
-              text: 'Ocurrió un error creando su solicitud. Por favor, intente más tarde.',
-              icon: 'error',
-              confirmButtonText: 'Continuar'
-            });
+            throw err;
           }
     };
 
@@ -54,8 +49,7 @@ export const useSpecialDocs = () => {
               throw new Error("Failed  updating special document status");
             }
         
-            const data = await response.json();
-            return data;
+           return response.ok;
           } catch (err) {
             console.error("Error updating special document status:", err);
             throw err;

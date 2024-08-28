@@ -8,6 +8,7 @@ import {
   SideMenu,
 } from "../ui";
 import { Box, Container } from "@mui/material";
+import { Toaster } from "sonner";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -41,7 +42,13 @@ export const DocsLayout: FC<Props> = ({
       <nav>
         <NavBar></NavBar>
       </nav>
-
+      <Toaster  richColors  position="top-right"
+        visibleToasts={1}
+         toastOptions={{
+                    style:{
+                      fontSize:"1.2rem"
+                    }
+                   }}          />
       <SideMenu></SideMenu>
       <ModalComponent></ModalComponent>
 

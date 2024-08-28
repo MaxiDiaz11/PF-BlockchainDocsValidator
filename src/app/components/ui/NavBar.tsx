@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { UiContext } from "@/app/context";
 import BlurOnIcon from "@mui/icons-material/BlurOn";
 import NextLink from "next/link";
-import { Build, FormatListNumbered, VerifiedUser } from "@mui/icons-material";
 
 export const NavBar = () => {
   const { toggleSideMenu } = useContext(UiContext);
@@ -31,7 +30,6 @@ export const NavBar = () => {
                   sx={{ fontSize: 16}}
                   color={page === "/dashboard/generate" ? "primary" : "info"}
                 >
-              <Build sx={{ height: "15px", marginBottom: 2 }} />
                   Generar
                 </Button>
               </Link>
@@ -42,7 +40,6 @@ export const NavBar = () => {
                   sx={{ fontSize: 16}}
                   color={page === "/dashboard/validate" ? "primary" : "info"}
                 >
-                  <VerifiedUser sx={{ height: "15px", marginBottom: 2 }}/>
                   Validar
                 </Button>
               </Link>
@@ -53,7 +50,6 @@ export const NavBar = () => {
                   sx={{ fontSize: 16}}
                   color={page === "/dashboard/list" ? "primary" : "info"}
                 >
-                  <FormatListNumbered sx={{ height: "15px", marginBottom: 2 }}/>
                   Listar
                 </Button>
               </Link>
