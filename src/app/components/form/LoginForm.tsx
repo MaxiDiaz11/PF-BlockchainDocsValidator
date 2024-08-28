@@ -15,7 +15,7 @@ const LoginForm: FC = () => {
   const router = useRouter();
 
   const validateEmail = (email: string) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
     return emailPattern.test(email);
   };
 
@@ -83,11 +83,13 @@ const LoginForm: FC = () => {
           variant="filled"
           fullWidth
           value={email}
-          sx={{ color: "#fff", background: "#fff", borderRadius: 4}}
+          sx={{ color: "#fff", background: "#fff" }}
           onChange={(e) => setEmail(e.target.value)}
           error={!!emailError}
-          helperText={emailError}
         ></TextField>
+        <Typography sx={{ paddingTop: 1, color: 'red'}}>
+          {emailError ? emailError : ''}
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -96,11 +98,13 @@ const LoginForm: FC = () => {
           variant="filled"
           fullWidth
           value={password}
-          sx={{ color: "#fff", background: "#fff", borderRadius: 4}}
+          sx={{ color: "#fff", background: "#fff" }}
           onChange={(e) => setPassword(e.target.value)}
           error={!!passwordError}
-          helperText={passwordError}
         ></TextField>
+        <Typography sx={{ paddingTop: 1, color: 'red'}}>
+          {passwordError ? passwordError : ''}
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <Button

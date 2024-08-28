@@ -75,6 +75,7 @@ export default function DocListAdminTable({ rows }: DocListTableProps) {
         <Button
           color="secondary"
           className="circular-btn"
+          disabled={params.row.estado == "Aprobado" || params.row.estado == "Rechazado"}
           onClick={() => goToEvaluarDocument(params.row.id)}
         >
           Evaluar
