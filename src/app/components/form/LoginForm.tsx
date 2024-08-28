@@ -43,7 +43,7 @@ const LoginForm: FC = () => {
       const data = await login(email, password, role);
       console.log("Login successful:", data);
       storeToken(data.accessToken);
-      router.push("/dashboard/list");
+      router.push("/dashboard/main");
     } catch (err) {
       console.error("Login failed:", err);
       // Handle login error

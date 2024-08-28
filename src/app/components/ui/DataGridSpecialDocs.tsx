@@ -75,7 +75,7 @@ const columns: GridColDef[] = [
     headerName: 'Accion',
     width: 150,
     renderCell: (params) => (
-      params.row.hash !== '' ? (
+      params.row.hash ? (
         <Button
           variant="contained"
           onClick={() => navigator.clipboard.writeText(params.row.hash)}
