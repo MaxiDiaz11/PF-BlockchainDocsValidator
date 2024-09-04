@@ -24,11 +24,10 @@ export const SearchDocsForm: FC = () => {
   const [fileFromBlockchain, setFileFromBlockchain] = useState<any>();
   const [fileFound, setFileFound] = useState(false);
   const [hashError, setHashError] = useState(false);
- 
+  const [requestSent, setRequestSent] = useState(false);
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     setHashError(false);
     let valid = true;
 
@@ -42,6 +41,7 @@ export const SearchDocsForm: FC = () => {
     }
 
     try {
+      setRequestSent(true);
       const data = await validateDoc(hash);
       setFileFromBlockchain(data);
       setFileFound(true);
@@ -96,9 +96,7 @@ export const SearchDocsForm: FC = () => {
       </Box>
 
       <Grid item xs={12} sx={{ marginTop: 4 }}>
-        {fileFound && (
-          <>
-            <Typography variant="h6" sx={{ marginTop: 3 }}>
+      {requestSent && (<Typography variant="h6" sx={{ marginTop: 3 }}>
               Estado:{" "}
               <Chip
                 label={
@@ -107,6 +105,9 @@ export const SearchDocsForm: FC = () => {
                 color={fileFound ? "success" : "error"}
               />
             </Typography>
+       )}
+        {fileFound && (
+          <>
             <Grid
               item
               xs={12}
@@ -120,6 +121,16 @@ export const SearchDocsForm: FC = () => {
                 alignItems: "center",
               }}
             >
+              <IconButton
+                className="circular-btn"
+                onClick={(e) =>
+                  openLinkInNewTab(
+                    `https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`
+                  )
+                }
+              >
+                <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
+              </IconButton>
               <Typography
                 variant="body1"
                 sx={{ marginTop: 2, fontWeight: "bold" }}
@@ -132,16 +143,8 @@ export const SearchDocsForm: FC = () => {
               >
                 {getDate(fileFromBlockchain?.uploadDate)}
               </Typography>
-              <IconButton
-                className="circular-btn"
-                onClick={(e) =>
-                  openLinkInNewTab(
-                    `https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`
-                  )
-                }
-              >
-                <DownloadForOfflineRoundedIcon sx={{ fontSize: 30 }} />
-              </IconButton>
+              
+                <iframe height={550} width={600} src={`https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`} />
             </Grid>
           </>
         )}

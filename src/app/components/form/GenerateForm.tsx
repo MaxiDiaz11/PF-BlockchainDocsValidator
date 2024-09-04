@@ -18,6 +18,8 @@ import { useDocs } from "@/app/hooks/useDocs";
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 
+const validLegajos = [48393, 48453, 48409]
+
 export const GenerateForm = () => {
   const { toggleModal } = useContext(UiContext);
   const [document, setDocument] = useState("");
@@ -47,7 +49,7 @@ export const GenerateForm = () => {
       setDocumentError(true);
       valid = false;
     }
-    if (legajo === "") {
+    if (legajo === "" || !validLegajos.includes(Number(legajo))) {
       setLegajoError(true);
       valid = false;
     }
@@ -100,7 +102,6 @@ export const GenerateForm = () => {
               <MenuItem value={"CertificadoAnalitico"}>
                 Certificado Analitico
               </MenuItem>
-              <MenuItem value={""}>Otro</MenuItem>
             </Select>
             {documentError && (
               <FormHelperText>
@@ -121,7 +122,7 @@ export const GenerateForm = () => {
               setLegajoError(false);
             }}
             error={legajoError}
-            helperText={legajoError ? "Por favor, ingrese su legajo." : ""}
+            helperText={legajoError ? "Por favor, ingrese un legajo valido." : ""}
           />
         </Grid>
         <Grid item xs={12}>
