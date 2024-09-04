@@ -141,7 +141,7 @@ export const ModalReqDocContent = () => {
         size="large"
         fullWidth
         sx={{ mt: 2 }}
-        disabled={error}
+        disabled={!!error}
         onClick={handleSubmit}
       >
         Solicitar
