@@ -13,6 +13,7 @@ import { useDocs } from "@/app/hooks/useDocs";
 import { IconButton } from "../../../../node_modules/@mui/material/index";
 import { getDate } from "@/app/util/utils";
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import Link from "next/link";
 interface Props {
   documentName?: string;
   documentStatus?: string;
@@ -143,7 +144,15 @@ export const SearchDocsForm: FC = () => {
               >
                 {getDate(fileFromBlockchain?.uploadDate)}
               </Typography>
-              
+              <Typography
+              variant="body2"
+              sx={{ marginY: 2, fontWeight: "bold", }}
+              >
+                Observar en la Blockchain: 
+                <Link href={`https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`} target="_blank">
+                    {` https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash} `}
+                </Link>
+              </Typography>
                 <iframe height={550} width={600} src={`https://ipfs.filebase.io/ipfs/${fileFromBlockchain.hash}`} />
             </Grid>
           </>
