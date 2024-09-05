@@ -1,7 +1,7 @@
 "use client";
-import * as React from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
+import { useEffect, useState } from "react";
 
 // Define the props interface
 interface BarChartComponentProps {
@@ -50,21 +50,30 @@ const chartSetting = {
 };
 
 export default function BarChartComponent({ documentsByMonth }: BarChartComponentProps) {
-  const [tickPlacement, setTickPlacement] = React.useState<
+  const combinedData = documentsByMonth.reduce((acc, doc) => {
+    const existing = acc.find((item) => item.month === doc.month);
+    if (existing) {
+      existing.count += typeof doc.count === 'string' ? parseInt(doc.count, 10) : doc.count;
+    } else {
+      acc.push({
+        ...doc,
+        count: typeof doc.count === 'string' ? parseInt(doc.count, 10) : doc.count,
+      });
+    }
+    return acc;
+  }, [] as { month: string; count: number }[]);
+
+  const [tickPlacement, setTickPlacement] = useState<
     "start" | "end" | "middle" | "extremities"
   >("middle");
-  const [tickLabelPlacement, setTickLabelPlacement] = React.useState<
+  const [tickLabelPlacement, setTickLabelPlacement] = useState<
     "middle" | "tick"
   >("middle");
 
-  // Extract year from the first item, default to "2024" if empty
-  const year = documentsByMonth[0]?.month.split("-")[0] || "2024";
+  const year = combinedData[0]?.month.split("-")[0] || "2024";
 
-  // Fill the entire year with 0 counts
   const fullYearData = initializeYear(year).map((monthData) => {
-    const found = documentsByMonth.find(
-      (doc) => doc.month === monthData.month
-    );
+    const found = combinedData.find((doc) => doc.month === monthData.month);
     return found ? found : monthData;
   });
 
