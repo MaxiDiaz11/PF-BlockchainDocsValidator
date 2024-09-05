@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  FormControl,
   Grid,
+  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -33,6 +35,10 @@ export const SearchDocAdmin = () => {
     }
   }, []);
 
+  const handleChangeLegajo = (event: SelectChangeEvent) => {
+    setLegajo(event.target.value);
+  };
+
   const handleChange = (event: SelectChangeEvent) => {
     setStatus(Number(event.target.value));
   };
@@ -56,18 +62,26 @@ export const SearchDocAdmin = () => {
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField
-              label="Legajo"
-              type="text"
+          <FormControl variant="standard" sx={{ minWidth: "100%"}}>
+            <InputLabel id="demo-simple-select-legajo" sx={{marginLeft: 1}}>Legajo</InputLabel>
+            <Select
               variant="filled"
+              labelId="demo-simple-select-legajo"
+              id="demo-simple-legajo"
               fullWidth
-              onChange={(evt) => setLegajo(evt.target.value)}
-            ></TextField>
+              label="Legajo"
+              onChange={handleChangeLegajo}
+            >
+              <MenuItem value={"48393"}>48393</MenuItem>
+              <MenuItem value={"48453"}>48453</MenuItem>
+              <MenuItem value={"48409"}>48409</MenuItem>
+            </Select>
+            </FormControl>
           </Grid>
 
           <Grid item xs={12}>
             <TextField
-              label="Nombre"
+              label="Nombre del Alumno"
               type="text"
               variant="filled"
               fullWidth
@@ -75,18 +89,21 @@ export const SearchDocAdmin = () => {
             ></TextField>
           </Grid>
           <Grid item xs={12}>
+          <FormControl variant="standard" sx={{ minWidth: "100%"}}>
+            <InputLabel id="demo-simple-select-label" sx={{marginLeft: 1}}>Estado</InputLabel>
             <Select
               variant="filled"
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              label="Documento"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               fullWidth
+              label="Estado"
               onChange={handleChange}
             >
               <MenuItem value={0}>Pendiente</MenuItem>
               <MenuItem value={1}>Aprobado</MenuItem>
               <MenuItem value={2}>Rechazado</MenuItem>
             </Select>
+            </FormControl>
           </Grid>
         </Grid>
 
